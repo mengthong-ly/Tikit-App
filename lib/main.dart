@@ -9,6 +9,7 @@ import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/models/stock.dart';
 import 'package:event_with_thong/models/taxon.dart';
+import 'package:event_with_thong/models/taxon_type.dart';
 import 'package:event_with_thong/models/user.dart';
 import 'package:event_with_thong/models/user_role_model.dart';
 import 'package:event_with_thong/models/vendor.dart';
@@ -73,7 +74,6 @@ void main() async {
         ),
       ],
       child: const TikitApp(),
-      // child: const SignUpPage(),
     ),
   );
 }
@@ -95,6 +95,7 @@ Future<void> laodGlobalData() async {
   Hive.registerAdapter(StockModelAdapter());
   Hive.registerAdapter(TaxonModelAdapter());
   Hive.registerAdapter(VendorModelAdapter());
+  Hive.registerAdapter(TaxonTypeAdapter());
 
   var roles = await Hive.openBox('roles');
   if (roles.isOpen) {

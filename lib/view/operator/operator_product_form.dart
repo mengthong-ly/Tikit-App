@@ -37,7 +37,7 @@ class _OperatorProductFormState extends State<OperatorProductForm> {
   late TaxonModel selectedTaxon;
   TaxonModel get initialTaxon => context
       .read<ClassificationProvider>()
-      .getTaxonByProductId(widget.product!);
+      .getTaxonByProductId(widget.product!.id);
 
   @override
   void initState() {
@@ -51,6 +51,7 @@ class _OperatorProductFormState extends State<OperatorProductForm> {
       description = widget.product!.description;
       location = widget.product!.location;
       eventDate = widget.product!.eventDate;
+      selectedTaxon = initialTaxon;
     } else {
       eventDate = DateTime.now();
     }

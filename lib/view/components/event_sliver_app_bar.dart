@@ -5,7 +5,7 @@ import 'package:event_with_thong/view/components/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EventSliverAppBar extends StatelessWidget {
+class EventSliverAppBar extends StatefulWidget {
   final bool isCollapsed;
   final ValueChanged<bool> onCollapsed;
   final String welcomeText;
@@ -19,6 +19,21 @@ class EventSliverAppBar extends StatelessWidget {
     required this.isOperator,
   });
 
+
+  @override
+  State<EventSliverAppBar> createState() => _EventSliverAppBarState();
+}
+
+class _EventSliverAppBarState extends State<EventSliverAppBar> {
+  bool isCollapsed = false;
+  void onCollapsed(bool value) {
+    if (isCollapsed == value) return;
+    setState(() => isCollapsed = value);
+  }
+  Color? get color => !widget.isOperator
+      ? context.watch<ThemeProvider>().theme.textTheme.headlineMedium!.color
+      : Colors.white;
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -28,11 +43,13 @@ class EventSliverAppBar extends StatelessWidget {
       collapsedHeight: kToolbarHeight,
       toolbarHeight: kToolbarHeight,
       surfaceTintColor: Colors.transparent,
-      // leading: const SizedBox.shrink(),
-      actions: isOperator
+      actions: widget.isOperator
           ? [
               IconButton(
-                icon: const Icon(Icons.exit_to_app, color: Colors.white,),
+                icon: const Icon(
+                  Icons.exit_to_app,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
@@ -41,21 +58,20 @@ class EventSliverAppBar extends StatelessWidget {
                         return const HomePage();
                       },
                     ),
-                    
                   );
                 },
               ),
             ]
           : null,
-      backgroundColor: isOperator
+      backgroundColor: widget.isOperator
           ? Colors.transparent
           : context.read<ThemeProvider>().theme == TAppTheme.lightTheme
-              ? Colors.white
+              ? const Color(0xfff4f4f4)
               : Theme.of(context).scaffoldBackgroundColor,
       pinned: true,
-      title: !isOperator
+      title: !widget.isOperator
           ? AnimatedOpacity(
-              opacity: isCollapsed ? 1 : 0,
+              opacity: widget.isCollapsed ? 1 : 0,
               duration: const Duration(milliseconds: 200),
               child: const CustomAppbar(),
             )
@@ -69,8 +85,8 @@ class EventSliverAppBar extends StatelessWidget {
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
             // Avoid updating state unnecessarily
-            if (isCollapsed != (top <= collapsePoint)) {
-              onCollapsed(top <= collapsePoint);
+            if (widget.isCollapsed != (top <= collapsePoint)) {
+              widget.onCollapsed(top <= collapsePoint);
             }
           });
 
@@ -79,7 +95,7 @@ class EventSliverAppBar extends StatelessWidget {
             background: AnimatedContainer(
               duration: const Duration(milliseconds: 500), // Smooth animation
               curve: Curves.easeInOut, // Smooth curve for changes
-              color: isOperator
+              color: widget.isOperator
                   ? Colors.transparent
                   : Theme.of(context).scaffoldBackgroundColor,
               child: Column(
@@ -91,12 +107,10 @@ class EventSliverAppBar extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
-                      welcomeText,
+                      widget.welcomeText,
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        color: !isOperator
-                            ? const Color.fromARGB(255, 0, 0, 0)
-                            : Colors.white,
+                        color: color,
                         fontSize: 36,
                         fontWeight: FontWeight.w700,
                       ),

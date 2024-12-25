@@ -1,4 +1,4 @@
-import 'package:event_with_thong/view/components/event_home_page.dart';
+import 'package:event_with_thong/view/pages/event_home_page.dart';
 import 'package:event_with_thong/view/pages/booking_page.dart';
 import 'package:event_with_thong/view/pages/cart_page.dart';
 import 'package:event_with_thong/view/pages/settings_home_page.dart';
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       const CartPage(),
       const SettingsHomePage(),
     ];
-    
+
     // so it will start from 0
 
     _animationController = AnimationController(

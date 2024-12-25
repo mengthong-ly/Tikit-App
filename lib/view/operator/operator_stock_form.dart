@@ -70,6 +70,11 @@ class _OperatorStockFormState extends State<OperatorStockForm> {
     variants = !isEdit
         ? context.read<ProductVariantProvider>().service.getAllNoStockVariant()
         : context.read<ProductVariantProvider>().service.getAllVariant();
+
+    // Ensure selectedVariant is initialized if not in edit mode
+    if (!isEdit && variants.isNotEmpty) {
+      selectedVariant = variants.first;
+    }
   }
 
   ProductModel? getProductByVariantId(String variantId) {
@@ -87,15 +92,14 @@ class _OperatorStockFormState extends State<OperatorStockForm> {
       _formkey.currentState!.save();
       if (isEdit) {
         // update stock
-        final stock = StockModel(
+        final StockModel updateStock = StockModel(
           id: widget.stock!.id,
           variantId: widget.stock!.variantId,
           quantity: quantity + (limitStock - previousLimitStock),
           limitStock: limitStock,
           stockLocation: location,
         );
-        await context.read<StockProvider>().stockService.editStock(stock);
-        Navigator.pop(context);
+        Navigator.pop<StockModel>(context, updateStock);
       } else {
         // add new stock
         final stock = StockModel(
@@ -105,8 +109,7 @@ class _OperatorStockFormState extends State<OperatorStockForm> {
           limitStock: limitStock,
           stockLocation: location,
         );
-        context.read<StockProvider>().stockService.addStock(stock);
-        Navigator.pop(context);
+        Navigator.pop<StockModel>(context, stock);
       }
     }
   }
@@ -146,6 +149,7 @@ class _OperatorStockFormState extends State<OperatorStockForm> {
                         return null;
                       },
                       onSaved: (newValue) {
+                        print(newValue);
                         limitStock = int.parse(newValue!).abs();
                       },
                     ),
@@ -171,7 +175,8 @@ class _OperatorStockFormState extends State<OperatorStockForm> {
                     const SizedBox(
                       height: 15,
                     ),
-                    TElevatedButton(label: 'Create', onPress: () => onSubmit())
+                    TElevatedButton(
+                        label: isEdit ? 'Edit' : 'Create', onPress: onSubmit)
                   ],
                 ),
               ),

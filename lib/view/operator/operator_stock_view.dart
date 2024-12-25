@@ -42,8 +42,8 @@ class _OperatorStockViewState extends State<OperatorStockView> {
     return null;
   }
 
-  Future<void> onEdit(StockModel stock) async {
-    await Navigator.push(
+  void onEdit(StockModel stock) async {
+    final StockModel? updateStock = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => OperatorStockForm(
@@ -52,11 +52,14 @@ class _OperatorStockViewState extends State<OperatorStockView> {
         ),
       ),
     );
-    setState(() {});
+    if (updateStock != null) {
+      await context.read<StockProvider>().stockService.editStock(updateStock);
+      setState(() {});
+    }
   }
 
   Future<void> onTap() async {
-    await Navigator.push(
+    final StockModel newStock = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const OperatorStockForm(
@@ -64,6 +67,7 @@ class _OperatorStockViewState extends State<OperatorStockView> {
         ),
       ),
     );
+
     setState(() {});
   }
 

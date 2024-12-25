@@ -1,5 +1,7 @@
-import 'package:event_with_thong/theme/text_theme.dart';
+import 'package:event_with_thong/theme/theme.dart';
+import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
@@ -18,16 +20,11 @@ class CustomAppbar extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Welcome to'),
-                  Text(
-                    'EventWithMe',
-                    style: TTextTheme.lightTextTheme.headlineSmall,
-                  ),
-                ],
+              SizedBox(
+                height: 30,
+                child:
+                    context.watch<ThemeProvider>().theme == TAppTheme.darkTheme
+                        ? Image.asset('assets/dark-mode-logo.png') : Image.asset('assets/light-mode-logo.png'),
               ),
               const Spacer(),
               const ClipRRect(
@@ -35,7 +32,7 @@ class CustomAppbar extends StatelessWidget {
                   width: 45,
                   height: 45,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0xfff4f4f4),
                     backgroundImage: AssetImage('assets/8.png'),
                   ),
                 ),

@@ -54,6 +54,13 @@ class _OperatorEventViewState extends State<OperatorEventView> {
     });
   }
 
+  void onDelete(TaxonModel taxon) async {
+    await context.read<TaxonModelProvider>().removeTaxonById(taxon.id);
+    setState(() {
+      load();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return OperatorTemplatePage(
@@ -72,35 +79,42 @@ class _OperatorEventViewState extends State<OperatorEventView> {
           ),
         ),
       ),
-      child: ListView.builder(
-        itemCount: taxons.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => onEdit(taxons[index]),
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-              padding: const EdgeInsets.only(left: 20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white)),
-              width: MediaQuery.of(context).size.width - 40,
-              height: 40,
-              child: Row(
-                children: [
-                  Text(
-                    '${index + 1}. ',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    taxons[index].name,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 40),
+        child: ListView.builder(
+          itemCount: taxons.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => onEdit(taxons[index]),
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white)),
+                width: MediaQuery.of(context).size.width - 40,
+                height: 40,
+                child: Row(
+                  children: [
+                    Text(
+                      '${index + 1}. ',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      taxons[index].name,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () => onDelete(taxons[index]),
+                        icon: const Icon(Icons.delete))
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:event_with_thong/view/operator/tikit_custom_snack_bar.dart';
 import 'package:event_with_thong/viewModels/authentication_provider.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
 import 'package:event_with_thong/view/pages/home_page.dart';
@@ -29,11 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
     confirmPassword = '';
   }
 
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
-  }
 
   String? validateConfirmPassword(String? value) {
     if (value == null || confirmPassword == '' || confirmPassword != password) {
@@ -43,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   String? validateEmail(String? value) {
-    if (value == null || email == '') {
+    if (value == null || value.isEmpty || !value.contains('@gmail.com') ) {
       return 'invalid email';
     }
     return null;
@@ -57,8 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void redirectToHomePage() {
-    showSnackbar(context,
-        'Welcome ${context.read<AuthenticationProvider>().currentUser?.name ?? 'User'}');
+    TikitCustomSnackBar.show(context,'Welcome ${context.read<AuthenticationProvider>().currentUser?.name ?? 'User'}');
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(

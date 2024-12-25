@@ -4,15 +4,14 @@ part 'product_variant.g.dart';
 
 @HiveType(typeId: 10)
 class ProductVariantModel {
-@HiveField(0)
+  @HiveField(0)
   final String id;
-@HiveField(1)
+  @HiveField(1)
   final String productId;
-@HiveField(2)
+  @HiveField(2)
   final String stockId;
-@HiveField(3)
+  @HiveField(3)
   final List<String> optionTypesId;
-  
   ProductVariantModel({
     required this.id,
     required this.productId,

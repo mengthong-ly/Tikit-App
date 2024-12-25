@@ -2,6 +2,7 @@ import 'package:event_with_thong/models/line_item.dart';
 import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/services/cart_service.dart';
+import 'package:event_with_thong/services/stock_service.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:logger/web.dart';
@@ -10,15 +11,14 @@ import 'package:uuid/uuid.dart';
 class CartProvider extends ChangeNotifier {
   static Uuid uuid = const Uuid();
   final CartService service = CartService.instance;
+  final StockService stockService = StockService.instance;
 
   // List<LineItemModel> cart = [];
 
   Future<List<LineItemModel>> loadCart() async {
     await service.loadCart();
-    // cart = service.cart;
     notifyListeners();
     return service.cart;
-    // return cart;
   }
 
   Future<List<LineItemModel>> constructLineItem(
@@ -40,6 +40,7 @@ class CartProvider extends ChangeNotifier {
 
   Future<void> addProductToCart(LineItemModel lineitem) async {
     await service.addLineItemToCart(lineitem);
+    stockService.decreaseStock(lineitem.productVariant.id, lineitem.quantity);
     Logger().d('''
         addLineItem
       ''');
@@ -57,8 +58,16 @@ class CartProvider extends ChangeNotifier {
   }
 
   Future<void> removeProductFromCart(LineItemModel lineItem) async {
-    service.cart.remove(lineItem);
-    await service.removeLineItemFromCart(lineItem);
-    notifyListeners();
+    try {
+      service.cart.remove(lineItem);
+      await service.removeLineItemFromCart(lineItem);
+      stockService.increaseStock(lineItem.productVariant.id, lineItem.quantity);
+      Logger().d('''
+        Add stock added back
+      ''');
+      notifyListeners();
+    } catch (e) {
+      Logger().e('fail to add stock back');
+    }
   }
 }

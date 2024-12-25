@@ -1,3 +1,4 @@
+import 'package:event_with_thong/view/operator/tikit_custom_snack_bar.dart';
 import 'package:event_with_thong/viewModels/authentication_provider.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
 import 'package:event_with_thong/view/pages/home_page.dart';
@@ -32,12 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
-  }
-
   void onEmailSave(String value) {
     email = value;
   }
@@ -47,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void redirectToHomePage() {
-    showSnackbar(context,
+    TikitCustomSnackBar.show(context,
         'Welcome ${context.read<AuthenticationProvider>().currentUser?.name ?? 'User'}');
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const HomePage()));
@@ -58,9 +53,10 @@ class _LoginPageState extends State<LoginPage> {
       _formkey.currentState!.save();
       if (await context
           .read<AuthenticationProvider>()
-          .loginWithEmailAndPassword(email, password, context)) redirectToHomePage();
-
-  }
+          .loginWithEmailAndPassword(email, password, context)) {
+        redirectToHomePage();
+      }
+    }
   }
 
   @override
@@ -141,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty && !value.contains('@gmail.com')) {
       return 'Invalid email';
     }
     return null;

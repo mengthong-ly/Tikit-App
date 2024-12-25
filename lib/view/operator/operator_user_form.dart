@@ -31,14 +31,6 @@ class _OperatorUserFormState extends State<OperatorUserForm> {
   late Gender selectedGender;
   late UserRoleModel selectedRole;
   bool get isEdit => widget.mode == FormMode.edit;
-  String get userNewId => (context
-              .read<AuthenticationProvider>()
-              .authenticationService
-              .userDatabase
-              .users
-              .length +
-          1)
-      .toString();
 
   @override
   void initState() {
@@ -53,7 +45,7 @@ class _OperatorUserFormState extends State<OperatorUserForm> {
       password = widget.user!.password;
       selectedRole = widget.user!.role;
     } else {
-      id = userNewId;
+      id = context.read<AuthenticationProvider>().authenticationService.totalUser.toString();
       name = '';
       email = '';
       address = '';
@@ -90,7 +82,7 @@ class _OperatorUserFormState extends State<OperatorUserForm> {
         Navigator.pop<UserModel>(context, updated);
       } else {
         UserModel newUser = UserModel(
-          id: userNewId,
+          id: context.read<AuthenticationProvider>().authenticationService.totalUser.toString(),
           email: email,
           password: password,
           role: selectedRole,

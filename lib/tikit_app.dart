@@ -149,7 +149,7 @@ class _TikitAppState extends State<TikitApp> with TickerProviderStateMixin {
         child: SizedBox(
           height: 120,
           width: 120,
-          child: Image.asset('assets/logo.png'),
+          child: Image.asset('assets/dark-mode-logo.png'),
         ),
       ),
     );

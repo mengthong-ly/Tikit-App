@@ -1,8 +1,10 @@
 import 'package:event_with_thong/theme/text_theme.dart';
 import 'package:event_with_thong/view/pages/home_page.dart';
 import 'package:event_with_thong/view/pages/welcome_page.dart';
+import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -27,7 +29,7 @@ class SuccessScreen extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          // color: const Color.fromARGB(255, 255, 255, 255),
           // gradient: LinearGradient(colors: [Color(value)]),
           borderRadius: BorderRadius.circular(20),
         ),
@@ -36,14 +38,12 @@ class SuccessScreen extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: Lottie.asset(
-                  'assets/success-light.json',
-                  width: 300,
-                ),
+                child: Lottie.asset('assets/success-light.json',
+                    width: 300, repeat: false),
               ),
               Center(
                 child: SizedBox(
-                  width: 400,
+                  width: 370,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -54,7 +54,9 @@ class SuccessScreen extends StatelessWidget {
                         'Success!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -62,7 +64,39 @@ class SuccessScreen extends StatelessWidget {
                       Text(
                         'Your e-ticket has been sent to your booking. Please present it at the event entrance.',
                         textAlign: TextAlign.center,
-                        style: TTextTheme.lightTextTheme.titleSmall,
+                        style: TextStyle(
+                            color: context.read<ThemeProvider>().isDarkMode
+                                ? Colors.white
+                                : const Color(0xff101010)),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Align(
+                        child: Container(
+                          width: 320,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              color: context.read<ThemeProvider>().isDarkMode ? Colors.white : Color(0xff101010),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Please check your booking',
+                              style: TextStyle(
+                                  fontSize: TTextTheme
+                                      .lightTextTheme.titleLarge!.fontSize,
+                                  fontWeight: TTextTheme
+                                      .lightTextTheme.titleLarge!.fontWeight,
+                                  color:
+                                      context.read<ThemeProvider>().isDarkMode
+                                          ? Colors.white
+                                          : const Color(0xff101010)),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

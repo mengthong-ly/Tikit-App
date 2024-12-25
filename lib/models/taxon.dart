@@ -1,3 +1,4 @@
+import 'package:event_with_thong/models/taxon_type.dart';
 import 'package:hive/hive.dart';
 part 'taxon.g.dart';
 
@@ -15,7 +16,10 @@ class TaxonModel extends HiveObject {
   final String vendorId;
   @HiveField(5)
   final String image;
-
+  @HiveField(6)
+  bool isFeatured;
+  @HiveField(7)
+  final TaxonType taxonType;
 
   TaxonModel({
     required this.id,
@@ -24,5 +28,7 @@ class TaxonModel extends HiveObject {
     required this.description,
     required this.vendorId,
     required this.image,
+    this.isFeatured = false,
+    required this.taxonType,
   });
 }

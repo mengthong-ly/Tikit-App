@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/vendor.dart';
 import 'package:event_with_thong/services/base_service.dart';
 import 'package:logger/web.dart';
@@ -28,7 +28,8 @@ class VendorService extends BaseService {
   Future<void> createVendor(VendorModel newVendor) async {
     try {
       final mybox = await getBox<VendorModel>('vendor');
-      await mybox.put(autoGenerateId, newVendor);
+      // await mybox.put(autoGenerateId, newVendor);
+      await mybox.add(newVendor);
       await load();
     } catch (e) {
       Logger().d('create fails: $e');
@@ -48,6 +49,7 @@ class VendorService extends BaseService {
       Logger().d('update fails: $e');
     }
   }
+
   Future<void> removeVendor(VendorModel updatedVendor) async {
     try {
       final mybox = await getBox<VendorModel>('vendor');

@@ -44,15 +44,14 @@ class OrderProvider extends ChangeNotifier {
         amount: cartService.totalSummary());
 
     final OrderModel order = OrderModel(
-      id: orderId,
-      orderNumber: 'R$orderId',
-      userId: auth.currentUser!.id,
-      totalPrice: cartService.totalSummary(),
-      status: paymentStatus,
-      lineitems: cart,
-      payment: payment,
-      dateTime: DateTime.now()
-    );
+        id: orderId,
+        orderNumber: 'R$orderId',
+        userId: auth.currentUser!.id,
+        totalPrice: cartService.totalSummary(),
+        status: paymentStatus,
+        lineitems: cart,
+        payment: payment,
+        dateTime: DateTime.now());
     print('--------------------------------------------------------');
     print(cartService.totalSummary());
     print('--------------------------------------------------------');

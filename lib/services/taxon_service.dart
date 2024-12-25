@@ -1,5 +1,6 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/taxon.dart';
+import 'package:event_with_thong/models/taxon_type.dart';
 import 'package:event_with_thong/services/base_service.dart';
 import 'package:logger/web.dart';
 
@@ -8,6 +9,7 @@ class TaxonService extends BaseService {
   static final TaxonService _instance = TaxonService._privateConstructor();
   static TaxonService get instance => _instance;
   final TaxonDatabase taxonData = TaxonDatabase.instance;
+  // ClassificationService classificationService = ClassificationService.instance;
 
   Future<void> loadTaxon() async {
     try {
@@ -28,8 +30,7 @@ class TaxonService extends BaseService {
   Future<List<TaxonModel>?> getAllTaxons() async {
     try {
       final myBox = await getBox<TaxonModel>('taxon');
-      taxonData.taxons = myBox.values.toList();
-      return taxonData.taxons;
+      return myBox.values.toList();
     } catch (e) {
       Logger().d('getAllTaxon: $e');
       return null;
@@ -58,7 +59,7 @@ class TaxonService extends BaseService {
     taxonData.taxons.add(taxon);
     try {
       final myBox = await getBox<TaxonModel>('taxon');
-      await myBox.put(int.parse(taxon.id), taxon);
+      await myBox.add(taxon);
       await loadTaxon();
       return true;
     } catch (e) {
@@ -113,13 +114,20 @@ class TaxonService extends BaseService {
     }
   }
 
+  Future<List<TaxonModel>> getFeatureTaxon() async {
+    final myBox = await getBox<TaxonModel>('taxon');
+    return myBox.values.toList().where(
+      (taxon) {
+        return taxon.isFeatured == true;
+      },
+    ).toList();
+  }
 
-  // void connectProductWithTaxon(TaxonModel taxon, ProductModel model) async {
-  //   try {
-  //     await productTaxonService.addProductTaxon(taxon, model);
-  //     Logger().d('Successfully added product taxon');
-  //   } catch (e) {
-  //     Logger().d('add product taxon error: $e');
-  //   }
-  // }
+  List<TaxonModel> getTaxonByFilterByType(TaxonType taxonType) {
+    return taxonData.taxons.toList().where(
+      (taxon) {
+        return taxon.taxonType == taxonType;
+      },
+    ).toList();
+  }
 }

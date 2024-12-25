@@ -24,13 +24,13 @@ class StockModel {
   });
 
   void increaseStock(int quantityToIncrease) {
-    (quantityToIncrease > 0 && quantityToIncrease < limitStock)
+    (quantityToIncrease > 0 && quantityToIncrease <= limitStock)
         ? quantity += quantityToIncrease
         : quantity += 0;
   }
 
   void decreaseStock(int quantityToDecrease) {
-    (quantityToDecrease > 0 && quantityToDecrease < quantity)
+    (quantityToDecrease > 0 && quantityToDecrease <= quantity)
         ? quantity -= quantityToDecrease
         : quantity -= 0;
   }

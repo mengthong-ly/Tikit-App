@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/classification.dart';
 import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/taxon.dart';
@@ -35,6 +35,7 @@ class ClassificationService extends BaseService {
       productTaxonData.classifications[index] = newProductTaxon;
       await myBox.putAll(productTaxonData.classifications.asMap());
       await loadProductTaxon();
+      await productService.loadProduct();
       return true;
     } catch (e) {
       Logger().d('updateProductTaxonById: $e');
@@ -42,10 +43,10 @@ class ClassificationService extends BaseService {
     }
   }
 
-  TaxonModel getTaxonByProductId(ProductModel product) {
+  TaxonModel getTaxonByProductId(String productId) {
     final ProductTaxonModel classificated =
         productTaxonData.classifications.firstWhere(
-      (classffication) => classffication.productId == product.id,
+      (classffication) => classffication.productId == productId,
     );
     return taxonService.getTaxonById(classificated.taxonId)!;
   }

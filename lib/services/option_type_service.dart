@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/option_type.dart';
 import 'package:hive/hive.dart';
 import 'package:logger/web.dart';

@@ -3,6 +3,7 @@ import 'package:event_with_thong/models/user.dart';
 import 'package:event_with_thong/view/operator/operator_event_form.dart';
 import 'package:event_with_thong/view/operator/operator_template_page.dart';
 import 'package:event_with_thong/view/operator/operator_user_form.dart';
+import 'package:event_with_thong/view/operator/tikit_custom_snack_bar.dart';
 import 'package:event_with_thong/viewModels/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class _OperatorUserViewState extends State<OperatorUserView> {
       await context
           .read<AuthenticationProvider>()
           .operatorUpdateUser(updatedUser);
-      showSnackbar(context, 'Update successful');
+      TikitCustomSnackBar.show(context, 'Update successful');
       setState(() {
         load();
       });
@@ -45,22 +46,16 @@ class _OperatorUserViewState extends State<OperatorUserView> {
 
   void onRemove(UserModel user) async {
     if (await context.read<AuthenticationProvider>().operatorRemoveUser(user)) {
-      showSnackbar(context, 'You just removed the ${user.email}');
+      TikitCustomSnackBar.show(context, 'You just removed the ${user.email}');
       setState(() {
         load();
       });
     } else {
-      showSnackbar(context, 'Failed to remove user');
+      TikitCustomSnackBar.show(context, 'Failed to remove user');
       setState(() {
         load();
       });
     }
-  }
-
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
   }
 
   Future<void> onCreate() async {
@@ -85,7 +80,7 @@ class _OperatorUserViewState extends State<OperatorUserView> {
           newUser.address ?? '',
           newUser.role,
           context);
-      showSnackbar(context, 'sucesss');
+      TikitCustomSnackBar.show(context, 'User created successfully');
       setState(() {
         load();
       });

@@ -27,7 +27,7 @@ class TAppTheme {
         backgroundColor: Colors.transparent,
       ),
       useMaterial3: true,
-      scaffoldBackgroundColor: const Color(0xff303030),
+      scaffoldBackgroundColor: const Color(0xff101010),
       fontFamily: 'Poppins',
       primaryColor: const Color(0xffFD2942),
       brightness: Brightness.dark,

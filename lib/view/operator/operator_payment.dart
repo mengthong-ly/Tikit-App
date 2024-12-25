@@ -69,9 +69,13 @@ class _OperatorPaymentState extends State<OperatorPayment> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  '${index + 1}. ${payments[index].id}',
-                                  style: const TextStyle(color: Colors.white),
+                                Container(width: 300,
+                              
+                                  child: Text(
+                                    '${index + 1}. ${payments[index].id}',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ),
                                 IconButton(
                                   onPressed: () => onRemove(payments[index]),

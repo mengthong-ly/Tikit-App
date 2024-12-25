@@ -134,9 +134,11 @@ class TElevatedButton extends StatelessWidget {
   final String label;
   final void Function() onPress;
   final bool isRed;
+  final Color? color;
   const TElevatedButton(
       {super.key,
       required this.label,
+      this.color,
       required this.onPress,
       this.isRed = false});
 
@@ -147,7 +149,7 @@ class TElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPress,
         style:
-            ElevatedButton.styleFrom(backgroundColor: const Color(0xffFD2942)),
+            ElevatedButton.styleFrom(backgroundColor: color ?? const Color(0xffFD2942)),
         child: Text(
           label,
           style: const TextStyle(fontWeight: FontWeight.w700),
@@ -170,7 +172,7 @@ class TElevatedButtonSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 2 - 40,
+      width: MediaQuery.of(context).size.width / 2 - 30,
       child: ElevatedButton(
         onPressed: onPress,
         style:

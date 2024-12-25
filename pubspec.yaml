@@ -54,6 +54,7 @@ flutter:
     - assets/welcomeScreen/
     - assets/background/
     - assets/vendor/
+    - assets/warningIcon/
 
 
   fonts:

@@ -1,5 +1,6 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/services/base_service.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/web.dart';
 import '../models/user.dart';
 
@@ -45,7 +46,7 @@ class AuthenticationService extends BaseService {
   Future<bool> addUserToDatabase(UserModel user) async {
     try {
       final userBox = await getBox<UserModel>('users');
-      await userBox.put(int.parse(user.id), user);
+      await userBox.add(user);
       await loadUsers();
       await setCurrentUser(user.email);
       return true;
@@ -58,7 +59,7 @@ class AuthenticationService extends BaseService {
   Future<bool> createNewUserByOperator(UserModel user) async {
     try {
       final mybox = await getBox<UserModel>('users');
-      await mybox.put(totalUser-1, user);
+      await mybox.add(user);
       await loadUsers();
       return true;
     } catch (e) {

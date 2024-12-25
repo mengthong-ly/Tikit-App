@@ -43,7 +43,6 @@ class CartService extends BaseService {
   Future<bool> addLineItemToCart(LineItemModel lineitem) async {
     try {
       cart.add(lineitem);
-
       Logger().d(cart.length);
       Logger().d(lineitem);
       final cartBox = await getBox<LineItemModel>('cart');

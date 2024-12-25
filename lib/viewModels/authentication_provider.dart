@@ -2,6 +2,7 @@ import 'package:event_with_thong/models/gender.dart';
 import 'package:event_with_thong/models/user.dart';
 import 'package:event_with_thong/models/user_role_model.dart';
 import 'package:event_with_thong/services/authentication_service.dart';
+import 'package:event_with_thong/view/operator/tikit_custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 
@@ -10,6 +11,8 @@ class AuthenticationProvider extends ChangeNotifier {
 
   UserModel? _currentUser;
   UserModel? get currentUser => _currentUser;
+
+  bool get isOperator => _currentUser!.role == UserRoleModel.admin;
 
   set currentUser(UserModel? user) {
     _currentUser = user;
@@ -48,25 +51,20 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       // await loadUser();
       if (await authenticationService.validateUserByEmail(email, password)) {
-        showSnackbar(context, 'done');
+        TikitCustomSnackBar.show(context, 'done');
         await authenticationService.setCurrentUser(email);
         await loadCurrentUser();
         notifyListeners();
         return true;
       } else {
-        showSnackbar(context, 'fail');
+        TikitCustomSnackBar.show(context, 'fail');
         return false;
       }
     } catch (e) {
-      showSnackbar(context, 'error');
+      TikitCustomSnackBar.show(context, 'error');
       Logger().e('Error during login: $e');
       return false;
     }
-  }
-
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<bool> createUserWithEmailAndPassword(
@@ -76,21 +74,21 @@ class AuthenticationProvider extends ChangeNotifier {
     BuildContext context,
   ) async {
     if (password != confirmPassword) {
-      showSnackbar(context, 'Password is not match');
+      TikitCustomSnackBar.show(context, 'Password is not match');
       return false;
     }
     if (!authenticationService.findUserExistingByEmail(email)) {
-      showSnackbar(context, 'User already exists');
+      TikitCustomSnackBar.show(context, 'User already exists');
       return false;
     }
 
     final UserModel user = UserModel(
-        id: (authenticationService.totalUser-1).toString(),
+        id: (authenticationService.totalUser).toString(),
         email: email,
         password: password);
 
     await authenticationService.addUserToDatabase(user)
-        ? showSnackbar(context, 'Welcome new User')
+        ? TikitCustomSnackBar.show(context, 'Welcome new User')
         : false;
 
     return true;
@@ -108,11 +106,11 @@ class AuthenticationProvider extends ChangeNotifier {
     BuildContext context,
   ) async {
     if (password != confirmPassword) {
-      showSnackbar(context, 'Password is not match');
+      TikitCustomSnackBar.show(context, 'Password is not match');
       return false;
     }
     if (!authenticationService.findUserExistingByEmail(email)) {
-      showSnackbar(context, 'User already exists');
+      TikitCustomSnackBar.show(context, 'User already exists');
       return false;
     }
 
@@ -127,7 +125,7 @@ class AuthenticationProvider extends ChangeNotifier {
         role: role);
 
     await authenticationService.createNewUserByOperator(user)
-        ? showSnackbar(context, 'Welcome new User')
+        ? TikitCustomSnackBar.show(context, 'Welcome new User')
         : false;
 
     return true;
@@ -152,13 +150,13 @@ class AuthenticationProvider extends ChangeNotifier {
     try {
       await authenticationService.removeUserFromCurrentUser(currentUser!);
       currentUser = null;
-      showSnackbar(
+      TikitCustomSnackBar.show(
         context,
         'logged out successfully',
       );
     } catch (e) {
       Logger().e('Error during logout: $e');
-      showSnackbar(
+      TikitCustomSnackBar.show(
         context,
         'Can\'t you log out',
       );

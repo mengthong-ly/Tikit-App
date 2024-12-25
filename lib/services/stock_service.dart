@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/stock.dart';
 import 'package:event_with_thong/services/base_service.dart';
 import 'package:logger/logger.dart';
@@ -14,9 +14,6 @@ class StockService extends BaseService {
     try {
       if (await checkBox('stock')) {
         final mybox = await getBox<StockModel>('stock');
-        // await mybox.clear();
-        // await mybox.deleteFromDisk();
-        // await mybox.close();
         stockData.stockDatabase = mybox.values.toList();
       } else {
         final mybox = await getBox<StockModel>('stock');
@@ -37,15 +34,14 @@ class StockService extends BaseService {
     }
   }
 
-  Future<void> editStock(StockModel stock) async {
+  Future<void> editStock(StockModel updatedStock) async {
     try {
       final mybox = await getBox<StockModel>('stock');
-      // await mybox.add(stock);
       int stockIndex =
-          mybox.values.toList().indexWhere((stock) => stock.id == stock.id);
-      await mybox.put(stockIndex, stock);
+          mybox.values.toList().indexWhere((stock) => stock.id == updatedStock.id);
+      await mybox.put(stockIndex, updatedStock);
       await loadStock();
-      
+      Logger().d('edit stock success');
     } catch (e) {
       Logger().d('edit stock fail');
     }
@@ -74,5 +70,36 @@ class StockService extends BaseService {
       Logger().d('get stock by id fail: $e');
       return null;
     }
+  }
+
+  void decreaseStock(String variantId, int quantity) async {
+    try {
+      final mybox = await getBox<StockModel>('stock');
+      final int index = mybox.values.toList().indexWhere(
+        (stock) {
+          return stock.variantId == variantId;
+        },
+      );
+
+      stockData.stockDatabase[index].decreaseStock(quantity);
+      await mybox.putAll(stockData.stockDatabase.asMap());
+      await loadStock();
+    } catch (e) {
+      Logger().d('decrease Fail');
+    }
+  }
+
+  void increaseStock(String variantId, int quantity) async {
+    try {
+      final mybox = await getBox<StockModel>('stock');
+      final int index = mybox.values.toList().indexWhere(
+        (stock) {
+          return stock.variantId == variantId;
+        },
+      );
+      stockData.stockDatabase[index].increaseStock(quantity);
+      await mybox.putAll(stockData.stockDatabase.asMap());
+      await loadStock();
+    } catch (e) {}
   }
 }

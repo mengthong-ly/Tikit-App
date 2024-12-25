@@ -15,7 +15,10 @@ class ProductModel {
   final String location;
   @HiveField(5)
   final DateTime eventDate;
-
+  @HiveField(6)
+  bool isPromoted;
+  @HiveField(7)
+  double discountPercentage;
 
   ProductModel({
     required this.id,
@@ -24,5 +27,7 @@ class ProductModel {
     required this.price,
     required this.location,
     required this.eventDate,
+    this.isPromoted = false,
+    this.discountPercentage = 0,
   });
 }

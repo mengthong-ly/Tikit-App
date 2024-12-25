@@ -4,10 +4,12 @@ import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/services/cart_service.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
+import 'package:event_with_thong/view/components/payment_option_item.dart';
 import 'package:event_with_thong/view/pages/success_screen.dart';
 import 'package:event_with_thong/view/pages/welcome_page.dart';
 import 'package:event_with_thong/viewModels/order_provider.dart';
 import 'package:event_with_thong/viewModels/product_variant_provider.dart';
+import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +89,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   Text(
                     'Payment Method',
-                    style: TTextTheme.lightTextTheme.headlineSmall,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: context.read<ThemeProvider>().isDarkMode ? Colors.white : Colors.black
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -293,58 +299,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
               textAlign: TextAlign.right,
               style: TTextTheme.lightTextTheme.bodyLarge,
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PaymentOptionItem extends StatelessWidget {
-  final String title;
-  final PaymentTypeModel value;
-  final PaymentTypeModel groupValue;
-  final void Function(PaymentTypeModel) callback;
-
-  const PaymentOptionItem({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.groupValue,
-    required this.callback,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 40,
-      height: 30,
-      margin: const EdgeInsets.only(top: 5, bottom: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            width: 27,
-            height: 27,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.transparent
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(3),
-              child: Image.asset(value.image)),
-          ),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: TTextTheme.lightTextTheme.bodyLarge,
-          ),
-          const Spacer(),
-          Radio(
-            activeColor: const Color(0xffFD2942),
-            value: value,
-            groupValue: groupValue,
-            onChanged: (paymentType) => callback(paymentType!),
           ),
         ],
       ),

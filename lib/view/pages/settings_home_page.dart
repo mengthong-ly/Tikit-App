@@ -1,18 +1,15 @@
-import 'dart:ui';
-
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/user.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
 import 'package:event_with_thong/view/operator/operator_page.dart';
 import 'package:event_with_thong/view/pages/personal_profile_page.dart';
 import 'package:event_with_thong/view/pages/setting_page_title.dart';
+import 'package:event_with_thong/view/pages/user_edit_form.dart';
 import 'package:event_with_thong/viewModels/authentication_provider.dart';
 import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:event_with_thong/theme/theme.dart';
-import 'package:event_with_thong/view/pages/Edit_form.dart';
 import 'package:event_with_thong/view/pages/login_page.dart';
 import 'package:event_with_thong/view/pages/setting_item.dart';
-import 'package:event_with_thong/view/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -86,8 +83,7 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          buildAdminButton(context),
-                          buildbody(context, genralSettings, otherSettings)
+                          buildbody(context, genralSettings, otherSettings),
                           // TElevatedButton(label: 'Edit', onPress: () {})
                         ],
                       ),
@@ -110,39 +106,30 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const OperatorPage()),
-          (route) => false, 
+          (route) => false,
         );
       },
       child: Container(
         width: MediaQuery.of(context).size.width - 40,
-        height: 90,
+        height: 50,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.black,
-          boxShadow: const [
-            BoxShadow(
-                color: Color.fromARGB(43, 0, 0, 0),
-                blurRadius: 10,
-                spreadRadius: 1),
-          ],
-          gradient: const RadialGradient(
-            radius: 2,
-            colors: [
-              Color.fromARGB(255, 0, 0, 0),
-              Color(0xffFD2942),
-              Color.fromARGB(255, 0, 0, 0),
-              Color(0xffFD2942),
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.black,
+            boxShadow: const [
+              BoxShadow(
+                  color: Color.fromARGB(102, 0, 0, 0),
+                  blurRadius: 10,
+                  spreadRadius: 1),
             ],
-          ),
-        ),
+            gradient: const LinearGradient(colors: [
+              Color.fromARGB(255, 0, 0, 0),
+              Color(0xff4338CA),
+              Color.fromARGB(255, 0, 0, 0),
+            ])),
         child: Center(
           child: Text(
             'Admin Mode',
-            style: TextStyle(
-              fontSize: TTextTheme.lightTextTheme.headlineMedium!.fontSize,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TTextTheme.darkTextTheme.titleLarge,
           ),
         ),
       ),
@@ -162,18 +149,14 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
         const SettingPageTitle(title: 'Other'),
         buildSettingContent(context, otherSettings),
         const SizedBox(
+          height: 20,
+        ),
+        context.read<AuthenticationProvider>().isOperator
+            ? buildAdminButton(context)
+            : const SizedBox.shrink(),
+        const SizedBox(
           height: 30,
         ),
-        isLogin
-            ? TElevatedButton(
-                label: 'Logout',
-                onPress: () => onLogout(context),
-                isRed: true,
-              )
-            : TElevatedButton(
-                label: 'Login',
-                onPress: () {},
-              )
       ],
     );
   }
@@ -295,6 +278,15 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
       surfaceTintColor: Colors.transparent,
       centerTitle: false,
       title: buildTitleAppbar(context),
+      actions: [
+        IconButton(
+          onPressed: () => onLogout(context),
+          icon: const Icon(Icons.login_outlined),
+        ),
+        const SizedBox(
+          width: 15,
+        )
+      ],
     );
   }
 

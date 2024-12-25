@@ -6,6 +6,7 @@ import 'package:event_with_thong/view/components/t_text_form_field.dart';
 import 'package:event_with_thong/view/components/t_title_for_text_field.dart';
 import 'package:event_with_thong/view/pages/welcome_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 
@@ -53,11 +54,52 @@ class _EditFormState extends State<EditForm> {
       Logger().d('''
         $name
         ''');
-      _showConfirmDialog();
+      if (kIsWeb) {
+        buildConfiirmDialogForWeb();
+      } else {
+        _showCupertinoConfirmDialog();
+      }
     }
   }
 
-  Future<dynamic> _showConfirmDialog() {
+  Future<dynamic> buildConfiirmDialogForWeb() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Accept'),
+              content: const Text('Confirm Change?'),
+              actions: [
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        final UserModel dummyUserForSave = UserModel(
+                          id: id,
+                          email: email,
+                          name: name,
+                          address: address,
+                          gender: selectedGender,
+                          password: widget.user.password,
+                          phoneNumber: phoneNumber,
+                        );
+
+                        Navigator.pop<UserModel>(context, dummyUserForSave);
+                        Navigator.pop<UserModel>(context, dummyUserForSave);
+                      },
+                      child: const Text('Yes'),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop<UserModel>(context, widget.user),
+                      child: const Text('No'),
+                    ),
+                  ],
+                )
+              ],
+            ));
+  }
+
+  Future<dynamic> _showCupertinoConfirmDialog() {
     return _showCustomDialog(
       'Accept?',
       "Are you sure?",

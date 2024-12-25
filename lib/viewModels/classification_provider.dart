@@ -20,7 +20,7 @@ class ClassificationProvider extends ChangeNotifier {
     return _product;
   }
 
-  TaxonModel getTaxonByProductId(ProductModel product) {
-    return service.getTaxonByProductId(product);
+  TaxonModel getTaxonByProductId(String productId) {
+    return service.getTaxonByProductId(productId);
   }
 }

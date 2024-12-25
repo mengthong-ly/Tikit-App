@@ -1,8 +1,9 @@
 import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/taxon.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
-import 'package:event_with_thong/view/pages/view_single_product_page.dart';
+import 'package:event_with_thong/view/components/product_item.dart';
 import 'package:event_with_thong/viewModels/classification_provider.dart';
+import 'package:event_with_thong/viewModels/vendor_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,16 +15,27 @@ class ProductView extends StatefulWidget {
   State<ProductView> createState() => _ProductViewState();
 }
 
-class _ProductViewState extends State<ProductView> {
+class _ProductViewState extends State<ProductView>
+    with TickerProviderStateMixin {
   bool isCollapsed = false;
   double scrollHeight = 10;
-  final ScrollController _scrollController = ScrollController();
+  late final TabController _tabController;
+  late final ScrollController _scrollController = ScrollController();
   late final List<ProductModel?> product;
+  String? get taxonImage => widget.model.image;
+  String? get vendorImage =>
+      context.read<VendorProvider>().getVendorImageById(widget.model.vendorId);
+
+  void onCollapsed(bool value) {
+    if (isCollapsed == value) return;
+    setState(() => isCollapsed = value);
+  }
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    _tabController = TabController(vsync: this, length: 2);
     loadProduct();
   }
 
@@ -44,9 +56,9 @@ class _ProductViewState extends State<ProductView> {
     double newHeight;
 
     if (offset <= 90) {
-      newHeight = (offset / 2).clamp(0, 50); // Grow until offset 100
+      newHeight = (offset / 2).clamp(0, 50);
     } else {
-      newHeight = 50; // Stop growing after 100
+      newHeight = 50;
     }
 
     if (scrollHeight != newHeight) {
@@ -64,42 +76,68 @@ class _ProductViewState extends State<ProductView> {
         controller: _scrollController,
         slivers: [
           buildSliverAppBar(),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            childCount: product.length,
-            (context, index) {
-              return Align(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return ViewSingleProductPage(
-                          model: product[index]!,
-                        );
-                      },
-                    ));
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width * 9 / 21,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color(0xff303030)),
-                    child: Center(
-                      child: Text(
-                        product[index]!.name,
-                        style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
+          SliverToBoxAdapter(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PreferredSize(
+                  preferredSize: const Size.fromHeight(kToolbarHeight),
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorWeight: 2.0,
+                    indicatorColor: Theme.of(context).primaryColor,
+                    labelColor: Theme.of(context).primaryColor,
+                    enableFeedback: false,
+                    splashFactory: NoSplash.splashFactory,
+                    splashBorderRadius: const BorderRadius.only(),
+                    dividerColor: Colors.transparent,
+                    tabs: const [
+                      Tab(
+                        text: 'Tickets',
                       ),
-                    ),
+                      Tab(
+                        text: 'Event Info',
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          )),
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  kToolbarHeight -
+                  220, // Adjust height based on your layout
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 150, top: 20),
+                    itemCount: product.length,
+                    itemBuilder: (context, index) {
+                      return ProductCard(
+                        product: product,
+                        taxonImage: taxonImage != null && taxonImage!.isNotEmpty
+                            ? taxonImage!
+                            : 'assets/Group 60.png',
+                        index: index,
+                      );
+                    },
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.center,
+                        child: Text(widget.model.description),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -115,18 +153,16 @@ class _ProductViewState extends State<ProductView> {
       toolbarHeight: kToolbarHeight + 18,
       foregroundColor: Colors.white,
       backgroundColor: !isCollapsed ? Colors.black : Colors.white,
-      flexibleSpace: buildFlexibleSpaceBar(),
+      flexibleSpace: buildFlexibleSpaceBar(
+          taxonImage != null && taxonImage!.isNotEmpty
+              ? taxonImage!
+              : 'assets/Group 60.png'),
       pinned: true,
       shadowColor: Colors.transparent,
     );
   }
 
-  void onCollapsed(bool value) {
-    if (isCollapsed == value) return;
-    setState(() => isCollapsed = value);
-  }
-
-  Widget buildFlexibleSpaceBar() {
+  Widget buildFlexibleSpaceBar(String? taxonImage) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final top = constraints.biggest.height + 40;
@@ -142,7 +178,11 @@ class _ProductViewState extends State<ProductView> {
         return FlexibleSpaceBar(
           collapseMode: CollapseMode.parallax,
           titlePadding: const EdgeInsets.only(top: 20),
-          background: buildFlexibleSpaceBarBackground(context),
+          background: buildFlexibleSpaceBarBackground(
+              context,
+              taxonImage != null && taxonImage.isNotEmpty
+                  ? taxonImage
+                  : 'assets/Group 60.png'),
           expandedTitleScale: 1,
           title: Container(
             width: MediaQuery.of(context).size.width,
@@ -152,7 +192,7 @@ class _ProductViewState extends State<ProductView> {
                     end: Alignment.bottomCenter,
                     colors: [
                   Color.fromARGB(0, 0, 0, 0),
-                  Color.fromARGB(117, 0, 0, 0),
+                  Color.fromARGB(183, 0, 0, 0),
                   Colors.black,
                 ])),
             child: Column(
@@ -174,13 +214,17 @@ class _ProductViewState extends State<ProductView> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(color: Colors.white, width: 1)),
-                        child: const ClipRRect(
+                        child: ClipRRect(
                           child: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(
-                              'https://picsum.photos/id/1015/200/300',
-                            ),
-                          ),
+                              radius: 30,
+                              backgroundImage: AssetImage(
+                                  vendorImage != null && vendorImage!.isNotEmpty
+                                      ? vendorImage!
+                                      : 'assets/Group 60.png')
+                              // taxonImage != null && taxonImage.isNotEmpty
+                              //     ? taxonImage
+                              //     : 'assets/Group 60.png'),
+                              ),
                         ),
                       ),
                       const SizedBox(
@@ -219,84 +263,16 @@ class _ProductViewState extends State<ProductView> {
     );
   }
 
-  Widget buildFlexibleSpaceBarBackground(BuildContext context) {
+  Widget buildFlexibleSpaceBarBackground(
+    BuildContext context,
+    String image,
+  ) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(),
       child: Image.asset(
-        'assets/image/event3.jpg',
+        image.isNotEmpty ? image : 'assets/Group 60.png',
         fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget buildFlexibleSpaceBarTitle(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromARGB(0, 0, 0, 0),
-            Color.fromARGB(117, 0, 0, 0),
-            Colors.black,
-          ],
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 1,
-                    ),
-                  ),
-                  child: const ClipRRect(
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        'https://picsum.photos/id/1015/200/300',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'The Voice Cambodia',
-                      style: TTextTheme.darkTextTheme.headlineSmall,
-                    ),
-                    Text(
-                      'Lorem Ipsum',
-                      style: TTextTheme.darkTextTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
       ),
     );
   }

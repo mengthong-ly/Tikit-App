@@ -9,19 +9,6 @@ class OperatorProvider extends ChangeNotifier {
   late TaxonModel tempTaxon;
   TaxonService taxonService = TaxonService.instance;
 
-  Future<void> contructTaxonModel(
-      String name, String description, String vendorId) async {
-    String id = (service.taxonDatabase.taxons.length + 1).toString();
-    tempTaxon = TaxonModel(
-        id: id,
-        name: name,
-        slug: name,
-        description: description,
-        vendorId: vendorId,
-        image: 'GetFromSharedPreferences');
-
-    await taxonService.addTaxon(tempTaxon);
-  }
 
   Future<String?> _getSavedImagePath() async {
     final prefs = await SharedPreferences.getInstance();

@@ -1,3 +1,4 @@
+import 'package:event_with_thong/models/taxon_type.dart';
 import 'package:hive/hive.dart';
 import 'package:logger/web.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,157 +54,906 @@ class TaxonDatabase {
 
   List<TaxonModel> taxons = [
     TaxonModel(
-      id: '1',
-      name: 'The Voice Cambodia',
-      slug: 'the-voice-cambodia',
-      description: 'Live performace',
-      vendorId: '1',
-      image: 'assets/background/thevoice_background.jpg',
-    ),
+        id: '1',
+        name: 'The Voice Cambodia',
+        slug: 'the-voice-cambodia',
+        description: '''
+Music Competition
+The Voice Cambodia brings you an exhilarating live performance experience that showcases the nation's finest vocal talents. This prestigious music competition combines heart-stopping performances with thrilling eliminations, all under the guidance of renowned coaches. A perfect event for music lovers and fans of live entertainment.
+
+Date: TBD
+
+Location: Phnom Penh City Hall
+
+Highlights:
+
+Live music from top talents across the country.
+A competitive format with surprises and emotional moments.
+State-of-the-art lighting and sound systems for an unforgettable evening.
+Disclaimer:
+
+Tickets are non-refundable and must be purchased through official channels.
+Sharing your e-tickets grants others the right to use them, so proceed with caution.
+''',
+        vendorId: '1',
+        image: 'assets/background/thevoice_background.jpg',
+        isFeatured: true,
+        taxonType: TaxonType.concert),
     TaxonModel(
-      id: '2',
-      name: 'Bun Phum',
-      slug: 'Bun Phum',
-      description: 'Relaxing music performances in a cozy setting.',
-      vendorId: '2',
-      image: 'assets/background/bunphum_background.png',
-    ),
+        id: '2',
+        name: 'Bun Phum',
+        slug: 'Bun Phum',
+        description: '''
+Bun Phum - National Event
+A serene evening filled with relaxing music performances, Bun Phum is the ultimate gathering for those looking to unwind in a cozy and intimate atmosphere. Featuring soothing melodies from top artists, this event provides the perfect escape from the hustle and bustle of daily life.
+
+Date: TBD
+
+Location: Siem Reap Cultural Village
+
+Highlights:
+
+An intimate setting with live acoustic music.
+A focus on relaxation and connecting with fellow attendees.
+A selection of local food stalls to enhance the experience.
+Disclaimer:
+
+Tickets are non-refundable. Ensure your ticket is purchased from the official website or authorized vendors.
+Be mindful of scammers selling duplicate QR codes.
+ ''',
+        vendorId: '14',
+        image: 'assets/background/bunphum_background.png',
+        taxonType: TaxonType.nationalEvent),
     TaxonModel(
-      id: '3',
-      name: 'Cambodia Got Talent',
-      slug: 'Cambodia Got Talent',
-      description: 'A celebration of delicious food from various cuisines.',
-      vendorId: '3',
-      image: 'assets/background/gottalent_background.jpg',
-    ),
+        id: '3',
+        name: 'Cambodia Got Talent',
+        slug: 'Cambodia Got Talent',
+        description: '''
+Music Competition
+Here's the rewritten, long and detailed version for every event:
+
+The Voice Cambodia
+The Voice Cambodia brings you an exhilarating live performance experience that showcases the nation's finest vocal talents. This prestigious music competition combines heart-stopping performances with thrilling eliminations, all under the guidance of renowned coaches. A perfect event for music lovers and fans of live entertainment.
+
+Date: TBD
+
+Location: Phnom Penh City Hall
+
+Highlights:
+
+Live music from top talents across the country.
+A competitive format with surprises and emotional moments.
+State-of-the-art lighting and sound systems for an unforgettable evening.
+Disclaimer:
+
+Tickets are non-refundable and must be purchased through official channels.
+Sharing your e-tickets grants others the right to use them, so proceed with caution.
+Bun Phum
+A serene evening filled with relaxing music performances, Bun Phum is the ultimate gathering for those looking to unwind in a cozy and intimate atmosphere. Featuring soothing melodies from top artists, this event provides the perfect escape from the hustle and bustle of daily life.
+
+Date: TBD
+
+Location: Siem Reap Cultural Village
+
+Highlights:
+
+An intimate setting with live acoustic music.
+A focus on relaxation and connecting with fellow attendees.
+A selection of local food stalls to enhance the experience.
+Disclaimer:
+
+Tickets are non-refundable. Ensure your ticket is purchased from the official website or authorized vendors.
+Be mindful of scammers selling duplicate QR codes.
+Cambodia Got Talent
+Celebrate the incredible diversity of Cambodia’s talent at this high-energy event! From music and dance to unique acts you won’t see anywhere else, Cambodia Got Talent is a showcase of creativity and artistry that will leave you amazed.
+
+Date: TBD
+
+Location: Diamond Island Convention Center
+
+Highlights:
+
+A platform for performers from various disciplines to shine.
+Interactive segments with audience participation.
+World-class stage design and visuals.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure QR codes are not shared or duplicated, as this may lead to invalid tickets.
+        ''',
+        vendorId: '1',
+        image: 'assets/background/gottalent_background.jpg',
+        taxonType: TaxonType.concert),
     TaxonModel(
-      id: '4',
-      name: 'The Reach Solo Concert',
-      slug: 'The Reach Solo Concert',
-      description: 'An event gathering tech enthusiasts and professionals.',
-      vendorId: '4',
-      image: 'assets/background/reach_background.jpg',
-    ),
+        id: '4',
+        name: 'The Reach Solo Concert',
+        slug: 'The Reach Solo Concert',
+        description: '''
+The Voice Cambodia
+The Voice Cambodia brings you an exhilarating live performance experience that showcases the nation's finest vocal talents. This prestigious music competition combines heart-stopping performances with thrilling eliminations, all under the guidance of renowned coaches. A perfect event for music lovers and fans of live entertainment.
+
+Date: TBD
+
+Location: Phnom Penh City Hall
+
+Highlights:
+
+Live music from top talents across the country.
+A competitive format with surprises and emotional moments.
+State-of-the-art lighting and sound systems for an unforgettable evening.
+Disclaimer:
+
+Tickets are non-refundable and must be purchased through official channels.
+Sharing your e-tickets grants others the right to use them, so proceed with caution.
+Bun Phum
+A serene evening filled with relaxing music performances, Bun Phum is the ultimate gathering for those looking to unwind in a cozy and intimate atmosphere. Featuring soothing melodies from top artists, this event provides the perfect escape from the hustle and bustle of daily life.
+
+Date: TBD
+
+Location: Siem Reap Cultural Village
+
+Highlights:
+
+An intimate setting with live acoustic music.
+A focus on relaxation and connecting with fellow attendees.
+A selection of local food stalls to enhance the experience.
+Disclaimer:
+
+Tickets are non-refundable. Ensure your ticket is purchased from the official website or authorized vendors.
+Be mindful of scammers selling duplicate QR codes.
+Cambodia Got Talent
+Celebrate the incredible diversity of Cambodia’s talent at this high-energy event! From music and dance to unique acts you won’t see anywhere else, Cambodia Got Talent is a showcase of creativity and artistry that will leave you amazed.
+
+Date: TBD
+
+Location: Diamond Island Convention Center
+
+Highlights:
+
+A platform for performers from various disciplines to shine.
+Interactive segments with audience participation.
+World-class stage design and visuals.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure QR codes are not shared or duplicated, as this may lead to invalid tickets. ''',
+        vendorId: '1',
+        image: 'assets/background/reach_background.jpg',
+        taxonType: TaxonType.concert),
     TaxonModel(
-      id: '5',
-      name: 'Innex Expo',
-      slug: 'Innex',
-      description: 'An intense competition in various sports.',
-      vendorId: '5',
-      image: 'assets/background/innex_background.png',
-    ),
+        id: '5',
+        name: 'Innex Expo',
+        slug: 'Innex',
+        description: '''
+Innex Expo
+Step into the future at Innex Expo, Cambodia’s premier innovation and technology exhibition. This event is a hub for tech enthusiasts, startups, and industry leaders to explore groundbreaking ideas and projects.
+
+Date: TBD
+
+Location: Phnom Penh Expo Center
+
+Highlights:
+
+Exhibits featuring cutting-edge technology and innovative products.
+Networking opportunities with industry professionals.
+Keynote speakers and panel discussions on emerging trends.
+Disclaimer:
+
+Tickets are non-refundable.
+Sharing e-tickets or QR codes may result in unauthorized usage.
+ ''',
+        vendorId: '7',
+        image: 'assets/background/innex_background.png',
+        taxonType: TaxonType.conference),
     TaxonModel(
-      id: '6',
-      name: 'Book Fair',
-      slug: 'book-fair',
-      description: 'A gathering for book lovers and authors.',
-      vendorId: '6',
-      image: 'assets/background/bookfair_background.jpg',
-    ),
+        id: '6',
+        name: 'Book Fair',
+        slug: 'book-fair',
+        description: '''
+        Innex Expo
+Step into the future at Innex Expo, Cambodia's premier innovation and technology exhibition. This event is a hub for tech enthusiasts, startups, and industry leaders to explore groundbreaking ideas and projects.
+
+Date: TBD
+
+Location: Phnom Penh Expo Center
+
+Highlights:
+
+Exhibits featuring cutting-edge technology and innovative products.
+Networking opportunities with industry professionals.
+Keynote speakers and panel discussions on emerging trends.
+Disclaimer:
+
+Tickets are non-refundable.
+Sharing e-tickets or QR codes may result in unauthorized usage.
+        ''',
+        vendorId: '8',
+        image: 'assets/background/bookfair_background.jpg',
+        taxonType: TaxonType.book),
     TaxonModel(
-      id: '7',
-      name: 'TEDx Talks',
-      slug: 'tedx-talks',
-      description: 'Inspiring talks by industry leaders and changemakers.',
-      vendorId: '7',
-      image: 'assets/background/tedx_background.jpg',
-    ),
+        id: '7',
+        name: 'TEDx Talks',
+        slug: 'tedx-talks',
+        description: '''
+Book Fair - Biggest Cambodia Book festival
+Dive into the world of literature at the annual Book Fair, a gathering for book lovers, authors, and publishers. Discover new books, meet renowned authors, and enjoy a series of engaging workshops and panel discussions. This event is perfect for readers of all ages.
+
+Date: TBD
+
+Location: National Library of Cambodia
+
+Highlights:
+
+A vast selection of books from various genres and authors.
+Meet-and-greet sessions with local and international authors.
+Interactive workshops on writing, storytelling, and publishing.
+Disclaimer:
+
+Tickets are non-refundable and non-transferable.
+Ensure your e-tickets are purchased through authorized vendors only.
+TEDx Talks
+Be inspired by the thought leaders, changemakers, and innovators at TEDx Talks. This event brings together experts from various fields to share groundbreaking ideas and transformative stories that spark conversation and change.
+
+Date: TBD
+
+Location: Cambodia National Convention Center
+
+Highlights:
+
+Engaging talks by industry leaders and influential personalities.
+Networking opportunities with like-minded individuals.
+A chance to explore innovative ideas and solutions to global challenges.
+Disclaimer:
+
+Tickets are non-refundable and must be purchased from official channels.
+Attendees are required to arrive on time to avoid disrupting live talks.
+
+        ''',
+        vendorId: '5',
+        image: 'assets/background/tedx_background.jpg',
+        taxonType: TaxonType.education),
     TaxonModel(
-      id: '8',
-      name: 'Football League',
-      slug: 'football-league',
-      description: 'An exciting football tournament featuring top teams.',
-      vendorId: '8',
-      image: 'assets/background/football_background.jpg',
-    ),
+        id: '8',
+        name: 'Football League',
+        slug: 'football-league',
+        description: '''
+Football League - Tournament
+Gear up for an adrenaline-pumping football tournament featuring top teams battling it out for glory. The Football League is an unmissable event for sports enthusiasts, with edge-of-your-seat action and incredible team spirit.
+
+Date: TBD
+
+Location: Olympic Stadium, Phnom Penh
+
+Highlights:
+
+Exciting matches featuring top football teams.
+Fan zones with activities and merchandise.
+Live commentary and post-match analysis.
+Disclaimer:
+
+Tickets are non-refundable.
+Food and drinks are not permitted inside the stadium, except for water.
+
+ ''',
+        vendorId: '16',
+        image: 'assets/background/football_background.jpg',
+        taxonType: TaxonType.sport),
     TaxonModel(
-      id: '9',
-      name: 'Volleyball Tournament',
-      slug: 'volleyball-tournament',
-      description: 'A thrilling volleyball competition for sports enthusiasts.',
-      vendorId: '9',
-      image: 'assets/background/volleyball_background.jpg',
-    ),
+        id: '9',
+        name: 'Volleyball Tournament',
+        slug: 'volleyball-tournament',
+        description: '''Volleyball Tournament
+Experience the thrill of spikes and serves at the Volleyball Tournament, where elite teams compete in high-stakes matches. This event promises a day of sportsmanship and competitive energy.
+Date: TBD
+
+Location: Siem Reap Indoor Arena
+
+Highlights:
+
+High-energy matches featuring skilled players.
+Family-friendly activities and entertainment zones.
+An opportunity to support local teams and athletes.
+Disclaimer:
+
+Tickets are non-refundable and cannot be exchanged.
+Ensure your QR codes are kept secure to avoid duplication.''',
+        vendorId: '9',
+        image: 'assets/background/volleyball_background.jpg',
+        isFeatured: true,
+        taxonType: TaxonType.sport),
     TaxonModel(
-      id: '10',
-      name: 'Gumball Rally',
-      slug: 'gumball-rally',
-      description: 'A fun and adventurous car rally experience.',
-      vendorId: '10',
-      image: 'assets/background/gumbaleBackground.png',
-    ),
+        id: '10',
+        name: 'Gumball Rally',
+        slug: 'gumball-rally',
+        description: '''
+Gumball Rally
+Join the adventure at the Gumball Rally, a fun-filled car rally that blends excitement, teamwork, and scenic routes. Whether you’re a participant or a spectator, this event promises a thrilling experience for all.
+
+Date: TBD
+
+Location: Starting Point - Phnom Penh
+
+Highlights:
+
+Unique rally challenges along picturesque routes.
+A celebration event at the finish line with music and food.
+Opportunities to showcase your customized vehicles.
+Disclaimer:
+
+Tickets are non-refundable.
+Rally participants must follow safety guidelines and traffic laws.
+''',
+        vendorId: '15',
+        image: 'assets/background/gumbaleBackground.png',
+        taxonType: TaxonType.other),
     TaxonModel(
-      id: '11',
-      name: 'CADT Tech Expo',
-      slug: 'cadt-tech-expo',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/cadt_background.jpg',
-    ),
+        id: '11',
+        name: 'CADT Tech Expo',
+        slug: 'cadt-tech-expo',
+        description: '''
+Camboida Tech Expo 
+Dive into the world of literature at the annual Book Fair, a gathering for book lovers, authors, and publishers. Discover new books, meet renowned authors, and enjoy a series of engaging workshops and panel discussions. This event is perfect for readers of all ages.
+
+Date: TBD
+
+Location: National Library of Cambodia
+
+Highlights:
+
+A vast selection of books from various genres and authors.
+Meet-and-greet sessions with local and international authors.
+Interactive workshops on writing, storytelling, and publishing.
+Disclaimer:
+
+Tickets are non-refundable and non-transferable.
+Ensure your e-tickets are purchased through authorized vendors only.
+TEDx Talks
+Be inspired by the thought leaders, changemakers, and innovators at TEDx Talks. This event brings together experts from various fields to share groundbreaking ideas and transformative stories that spark conversation and change.
+
+Date: TBD
+
+Location: Cambodia National Convention Center
+
+Highlights:
+
+Engaging talks by industry leaders and influential personalities.
+Networking opportunities with like-minded individuals.
+A chance to explore innovative ideas and solutions to global challenges.
+Disclaimer:
+
+Tickets are non-refundable and must be purchased from official channels.
+Attendees are required to arrive on time to avoid disrupting live talks.
+Football League
+Gear up for an adrenaline-pumping football tournament featuring top teams battling it out for glory. The Football League is an unmissable event for sports enthusiasts, with edge-of-your-seat action and incredible team spirit.
+
+Date: TBD
+
+Location: Olympic Stadium, Phnom Penh
+
+Highlights:
+
+Exciting matches featuring top football teams.
+Fan zones with activities and merchandise.
+Live commentary and post-match analysis.
+Disclaimer:
+
+Tickets are non-refundable.
+Food and drinks are not permitted inside the stadium, except for water.
+Volleyball Tournament
+Experience the thrill of spikes and serves at the Volleyball Tournament, where elite teams compete in high-stakes matches. This event promises a day of sportsmanship and competitive energy.
+
+Date: TBD
+
+Location: Siem Reap Indoor Arena
+
+Highlights:
+
+High-energy matches featuring skilled players.
+Family-friendly activities and entertainment zones.
+An opportunity to support local teams and athletes.
+Disclaimer:
+
+Tickets are non-refundable and cannot be exchanged.
+Ensure your QR codes are kept secure to avoid duplication.
+Gumball Rally
+Join the adventure at the Gumball Rally, a fun-filled car rally that blends excitement, teamwork, and scenic routes. Whether you’re a participant or a spectator, this event promises a thrilling experience for all.
+
+Date: TBD
+
+Location: Starting Point - Phnom Penh
+
+Highlights:
+
+Unique rally challenges along picturesque routes.
+A celebration event at the finish line with music and food.
+Opportunities to showcase your customized vehicles.
+Disclaimer:
+
+Tickets are non-refundable.
+Rally participants must follow safety guidelines and traffic laws.
+CADT Tech Expo
+Explore cutting-edge technology and innovative projects at the CADT Tech Expo. This event serves as a platform for startups, entrepreneurs, and tech enthusiasts to showcase their latest innovations and network with industry leaders.
+
+Date: TBD
+
+Location: Cambodia Academy of Digital Technology
+
+Highlights:
+
+Interactive tech exhibits and product launches.
+Engaging panel discussions with tech experts.
+Networking opportunities with industry professionals.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure QR codes are not shared or duplicated to maintain validity.
+
+ ''',
+        vendorId: '4',
+        image: 'assets/background/cadt_background.jpg',
+        isFeatured: true,
+        taxonType: TaxonType.exhibition),
     TaxonModel(
-      id: '12',
-      name: 'MSC',
-      slug: 'msc',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/msc_background.jpeg',
-    ),
+        id: '12',
+        name: 'MSC',
+        slug: 'msc',
+        description: '''
+MSC (Mobile Sports Championship)
+Immerse yourself in the electrifying world of mobile gaming at MSC. This competition brings together the best mobile gamers to battle it out for ultimate glory, creating an unforgettable experience for participants and fans alike.
+
+Date: TBD
+
+Location: Phnom Penh Exhibition Hall
+
+Highlights:
+
+Live matches between top mobile gaming teams.
+Merchandise stalls and gaming accessories.
+Exclusive sneak peeks of upcoming game releases.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure e-tickets are secure and not shared with others.
+
+''',
+        vendorId: '13',
+        image: 'assets/background/msc_background.jpeg',
+        taxonType: TaxonType.game),
     TaxonModel(
-      id: '13',
-      name: 'Rodwell',
-      slug: 'rodwell',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/rodwell_background.png',
-    ),
+        id: '13',
+        name: 'Rodwell',
+        slug: 'rodwell',
+        description: '''
+Rodwell - School
+Rodwell is an education-focused event aimed at fostering innovation and entrepreneurship among students and professionals. The event showcases tech-driven projects and offers workshops to empower participants with cutting-edge skills.
+
+Date: TBD
+
+Location: Cambodia Digital Education Center
+
+Highlights:
+
+Hands-on workshops led by industry experts.
+Networking with leading educators and innovators.
+Exhibits of the latest in education technology.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure secure handling of your e-tickets to avoid unauthorized use.
+''',
+        vendorId: '2',
+        image: 'assets/background/rodwell_background.png',
+        taxonType: TaxonType.education),
     TaxonModel(
-      id: '14',
-      name: 'Innovation Tech WorkShop',
-      slug: 'Innovation Tech WorkShop',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/inno_background.jpg',
-    ),
+        id: '14',
+        name: 'Innovation Tech WorkShop',
+        slug: 'Innovation Tech WorkShop',
+        description: '''
+Innovation Tech Workshop
+Join the Innovation Tech Workshop, a dynamic exhibition that brings together tech enthusiasts, startups, and innovators under one roof. This featured event provides a platform for idea exchange, collaboration, and skill development.
+
+Date: TBD
+
+Location: Phnom Penh Innovation Hub
+
+Highlights:
+
+Interactive sessions with tech leaders.
+Live demonstrations of groundbreaking projects.
+Opportunities to collaborate with startups and investors.
+Disclaimer:
+
+Tickets are non-refundable.
+Keep QR codes secure to maintain their validity.
+''',
+        vendorId: '13',
+        image: 'assets/background/inno_background.jpg',
+        isFeatured: true,
+        taxonType: TaxonType.exhibition),
     TaxonModel(
-      id: '15',
-      name: 'Run With Sai',
-      slug: 'Run With Sai',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/runwithsai_background.jpg',
-    ),
+        id: '15',
+        name: 'Run With Sai',
+        slug: 'Run With Sai',
+        description: '''
+Run With Sai - Run with Passion
+Run With Sai is a charity-driven event that combines fitness and philanthropy. Join runners from across Cambodia in this fun run to raise funds for local charities while promoting health and community spirit.
+
+Date: TBD
+
+Location: Phnom Penh Riverside Park
+
+Highlights:
+
+Fun run for all age groups with various distances.
+Proceeds donated to local charities.
+Live music and refreshments at the finish line.
+Disclaimer:
+
+Tickets are non-refundable.
+Participants must follow safety and health guidelines during the event.
+
+ ''',
+        vendorId: '3',
+        image: 'assets/background/runwithsai_background.jpg',
+        taxonType: TaxonType.charity),
     TaxonModel(
-      id: '16',
-      name: 'M6',
-      slug: 'M6',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/m5_background.jpg',
-    ),
+        id: '16',
+        name: 'M6',
+        slug: 'M6',
+        description: '''
+M6 - E-sport Tournament
+Dive into the gaming universe with M6, a competitive event that brings mobile gaming enthusiasts together. Featuring tournaments, exhibitions, and interactive gaming experiences, this event promises excitement for gamers of all skill levels.
+
+Date: TBD
+
+Location: Phnom Penh Gaming Arena
+
+Highlights:
+
+Competitive tournaments with exciting prizes.
+Live streaming of matches on big screens.
+Interactive gaming zones and merchandise stalls.
+Disclaimer:
+
+Tickets are non-refundable.
+Players must adhere to tournament rules and guidelines.
+ ''',
+        vendorId: '10',
+        image: 'assets/background/m5_background.jpg',
+        taxonType: TaxonType.game),
     TaxonModel(
-      id: '17',
-      name: 'M5',
-      slug: 'M5',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/theq_background.jpg',
-    ),
+        id: '17',
+        name: 'M5',
+        slug: 'M5',
+        description: '''
+M5 - E-sport Tournament
+Rodwell is an education-focused event aimed at fostering innovation and entrepreneurship among students and professionals. The event showcases tech-driven projects and offers workshops to empower participants with cutting-edge skills.
+
+Date: TBD
+
+Location: Cambodia Digital Education Center
+
+Highlights:
+
+Hands-on workshops led by industry experts.
+Networking with leading educators and innovators.
+Exhibits of the latest in education technology.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure secure handling of your e-tickets to avoid unauthorized use.
+Innovation Tech Workshop
+Join the Innovation Tech Workshop, a dynamic exhibition that brings together tech enthusiasts, startups, and innovators under one roof. This featured event provides a platform for idea exchange, collaboration, and skill development.
+
+Date: TBD
+
+Location: Phnom Penh Innovation Hub
+
+Highlights:
+
+Interactive sessions with tech leaders.
+Live demonstrations of groundbreaking projects.
+Opportunities to collaborate with startups and investors.
+Disclaimer:
+
+Tickets are non-refundable.
+Keep QR codes secure to maintain their validity.
+Run With Sai
+Run With Sai is a charity-driven event that combines fitness and philanthropy. Join runners from across Cambodia in this fun run to raise funds for local charities while promoting health and community spirit.
+
+Date: TBD
+
+Location: Phnom Penh Riverside Park
+
+Highlights:
+
+Fun run for all age groups with various distances.
+Proceeds donated to local charities.
+Live music and refreshments at the finish line.
+Disclaimer:
+
+Tickets are non-refundable.
+Participants must follow safety and health guidelines during the event.
+M6
+Dive into the gaming universe with M6, a competitive event that brings mobile gaming enthusiasts together. Featuring tournaments, exhibitions, and interactive gaming experiences, this event promises excitement for gamers of all skill levels.
+
+Date: TBD
+
+Location: Phnom Penh Gaming Arena
+
+Highlights:
+
+Competitive tournaments with exciting prizes.
+Live streaming of matches on big screens.
+Interactive gaming zones and merchandise stalls.
+Disclaimer:
+
+Tickets are non-refundable.
+Players must adhere to tournament rules and guidelines.
+M5
+Experience the thrill of gaming innovation at M5, a showcase of cutting-edge games and technology. This event provides a platform for developers and gaming enthusiasts to connect and celebrate their passion for gaming.
+
+Date: TBD
+
+Location: Siem Reap Tech Expo Center
+
+Highlights:
+
+Game demos and sneak peeks of upcoming releases.
+Developer panels and Q&A sessions.
+Competitions for gaming enthusiasts with attractive prizes.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure your QR codes are not shared to prevent unauthorized entry.
+''',
+        vendorId: '12',
+        image: 'assets/background/theq_background.jpg',
+        taxonType: TaxonType.game),
     TaxonModel(
-      id: '18',
-      name: 'Sator Cambodia',
-      slug: 'Sator Cambodia',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/sator_background.jpg',
-    ),
+        id: '18',
+        name: 'Sator Cambodia',
+        slug: 'Sator Cambodia',
+        description: '''
+Sator Cambodia - The Art of Running
+Rodwell is an education-focused event aimed at fostering innovation and entrepreneurship among students and professionals. The event showcases tech-driven projects and offers workshops to empower participants with cutting-edge skills.
+
+Date: TBD
+
+Location: Cambodia Digital Education Center
+
+Highlights:
+
+Hands-on workshops led by industry experts.
+Networking with leading educators and innovators.
+Exhibits of the latest in education technology.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure secure handling of your e-tickets to avoid unauthorized use.
+Innovation Tech Workshop
+Join the Innovation Tech Workshop, a dynamic exhibition that brings together tech enthusiasts, startups, and innovators under one roof. This featured event provides a platform for idea exchange, collaboration, and skill development.
+
+Date: TBD
+
+Location: Phnom Penh Innovation Hub
+
+Highlights:
+
+Interactive sessions with tech leaders.
+Live demonstrations of groundbreaking projects.
+Opportunities to collaborate with startups and investors.
+Disclaimer:
+
+Tickets are non-refundable.
+Keep QR codes secure to maintain their validity.
+Run With Sai
+Run With Sai is a charity-driven event that combines fitness and philanthropy. Join runners from across Cambodia in this fun run to raise funds for local charities while promoting health and community spirit.
+
+Date: TBD
+
+Location: Phnom Penh Riverside Park
+
+Highlights:
+
+Fun run for all age groups with various distances.
+Proceeds donated to local charities.
+Live music and refreshments at the finish line.
+Disclaimer:
+
+Tickets are non-refundable.
+Participants must follow safety and health guidelines during the event.
+M6
+Dive into the gaming universe with M6, a competitive event that brings mobile gaming enthusiasts together. Featuring tournaments, exhibitions, and interactive gaming experiences, this event promises excitement for gamers of all skill levels.
+
+Date: TBD
+
+Location: Phnom Penh Gaming Arena
+
+Highlights:
+
+Competitive tournaments with exciting prizes.
+Live streaming of matches on big screens.
+Interactive gaming zones and merchandise stalls.
+Disclaimer:
+
+Tickets are non-refundable.
+Players must adhere to tournament rules and guidelines.
+M5
+Experience the thrill of gaming innovation at M5, a showcase of cutting-edge games and technology. This event provides a platform for developers and gaming enthusiasts to connect and celebrate their passion for gaming.
+
+Date: TBD
+
+Location: Siem Reap Tech Expo Center
+
+Highlights:
+
+Game demos and sneak peeks of upcoming releases.
+Developer panels and Q&A sessions.
+Competitions for gaming enthusiasts with attractive prizes.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure your QR codes are not shared to prevent unauthorized entry.
+Sator Cambodia
+Celebrate the vibrant culture of Cambodia at Sator Cambodia, a national event showcasing art, music, and innovation. This featured event is a perfect blend of tradition and modernity, offering something for everyone.
+
+Date: TBD
+
+Location: National Cultural Center, Phnom Penh
+
+Highlights:
+
+Performances by local artists and musicians.
+Exhibitions of traditional and contemporary Cambodian art.
+Family-friendly activities and cultural workshops.
+Disclaimer:
+
+Tickets are non-refundable.
+Food and beverages are not allowed inside, except water.
+''',
+        vendorId: '11',
+        image: 'assets/background/sator_background.jpg',
+        isFeatured: true,
+        taxonType: TaxonType.nationalEvent),
     TaxonModel(
-      id: '19',
-      name: 'The Q',
-      slug: 'The Q',
-      description: 'Showcasing innovative tech projects and startups.',
-      vendorId: '11',
-      image: 'assets/background/theq_background.jpg',
-    ),
+        id: '19',
+        name: 'The Q',
+        slug: 'The Q',
+        description: '''
+The Q solo concert
+Rodwell is an education-focused event aimed at fostering innovation and entrepreneurship among students and professionals. The event showcases tech-driven projects and offers workshops to empower participants with cutting-edge skills.
+
+Date: TBD
+
+Location: Cambodia Digital Education Center
+
+Highlights:
+
+Hands-on workshops led by industry experts.
+Networking with leading educators and innovators.
+Exhibits of the latest in education technology.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure secure handling of your e-tickets to avoid unauthorized use.
+Innovation Tech Workshop
+Join the Innovation Tech Workshop, a dynamic exhibition that brings together tech enthusiasts, startups, and innovators under one roof. This featured event provides a platform for idea exchange, collaboration, and skill development.
+
+Date: TBD
+
+Location: Phnom Penh Innovation Hub
+
+Highlights:
+
+Interactive sessions with tech leaders.
+Live demonstrations of groundbreaking projects.
+Opportunities to collaborate with startups and investors.
+Disclaimer:
+
+Tickets are non-refundable.
+Keep QR codes secure to maintain their validity.
+Run With Sai
+Run With Sai is a charity-driven event that combines fitness and philanthropy. Join runners from across Cambodia in this fun run to raise funds for local charities while promoting health and community spirit.
+
+Date: TBD
+
+Location: Phnom Penh Riverside Park
+
+Highlights:
+
+Fun run for all age groups with various distances.
+Proceeds donated to local charities.
+Live music and refreshments at the finish line.
+Disclaimer:
+
+Tickets are non-refundable.
+Participants must follow safety and health guidelines during the event.
+M6
+Dive into the gaming universe with M6, a competitive event that brings mobile gaming enthusiasts together. Featuring tournaments, exhibitions, and interactive gaming experiences, this event promises excitement for gamers of all skill levels.
+
+Date: TBD
+
+Location: Phnom Penh Gaming Arena
+
+Highlights:
+
+Competitive tournaments with exciting prizes.
+Live streaming of matches on big screens.
+Interactive gaming zones and merchandise stalls.
+Disclaimer:
+
+Tickets are non-refundable.
+Players must adhere to tournament rules and guidelines.
+M5
+Experience the thrill of gaming innovation at M5, a showcase of cutting-edge games and technology. This event provides a platform for developers and gaming enthusiasts to connect and celebrate their passion for gaming.
+
+Date: TBD
+
+Location: Siem Reap Tech Expo Center
+
+Highlights:
+
+Game demos and sneak peeks of upcoming releases.
+Developer panels and Q&A sessions.
+Competitions for gaming enthusiasts with attractive prizes.
+Disclaimer:
+
+Tickets are non-refundable.
+Ensure your QR codes are not shared to prevent unauthorized entry.
+Sator Cambodia
+Celebrate the vibrant culture of Cambodia at Sator Cambodia, a national event showcasing art, music, and innovation. This featured event is a perfect blend of tradition and modernity, offering something for everyone.
+
+Date: TBD
+
+Location: National Cultural Center, Phnom Penh
+
+Highlights:
+
+Performances by local artists and musicians.
+Exhibitions of traditional and contemporary Cambodian art.
+Family-friendly activities and cultural workshops.
+Disclaimer:
+
+Tickets are non-refundable.
+Food and beverages are not allowed inside, except water.
+The Q
+Join us for The Q - Rise of the Queen, a groundbreaking concert featuring Aok Sokunkanha in Cambodia's first-ever Indoor 360° stage. With stunning visuals and an unparalleled musical experience, this event is not to be missed.
+
+Date: December 28, 2024
+
+Location: Kampong Cham Stadium
+
+Highlights:
+
+Indoor 360° stage with LED screens and modern lighting.
+Exclusive performances of Aok Sokunkanha’s hit songs.
+Comfortable air-conditioned seating.
+Disclaimer:
+
+Tickets are non-refundable.
+Be cautious of ticket scams and purchase only through official channels.
+ ''',
+        vendorId: '1',
+        image: 'assets/background/theq_background.jpg',
+        taxonType: TaxonType.concert),
+    TaxonModel(
+        id: '20',
+        name: 'Flutter Party',
+        slug: 'Flutter Party',
+        description: '''
+Flutter Party - Party with Tears
+Flutter Party is a unique and exciting event where participants can create and share their own custom Flutter applications using the Flutter framework.
+This event is a perfect blend of creativity, innovation, and passion for technology. 
+Celebrate the hard work that we have been through out this course. Come and Join!
+
+Date: December 26, 2024
+
+Location: CADT 
+ ''',
+        vendorId: '17',
+        image: 'assets/background/flutter_background.jpg',
+        taxonType: TaxonType.concert),
   ];
 }
 
@@ -340,34 +1090,14 @@ class VendorDatabase {
       address: "800 Stadium Drive, Manchester, UK",
       profile: 'assets/vendor/football.jpg',
     ),
+    VendorModel(
+        id: "17",
+        name: "Teach.Ronan",
+        email: "Teach.ronan@cadt.teacher.edu.kh",
+        contact: '012 959166',
+        address: 'st230',
+        profile: 'assets/vendor/teacherRonan.jpg')
   ];
-
-  // Future<void> loadVendor() async {
-  //   try {
-  //     if (await _checkBox('Vendor')) {
-  //       final myBox = await _getBox('vendor');
-  //       vendors = myBox.values.toList() as List<VendorModel>;
-  //     } else {
-  //       final myBox = await _getBox('vendor');
-
-  //       await myBox.putAll(vendors.asMap());
-  //     }
-  //   } catch (e) {
-  //     Logger().d('laodVendor: $e');
-  //   }
-  // }
-
-  // Future<List<VendorModel>?> getAllVendors() async {
-  //   try {
-  //     // final myBox = await _getBox('vendor');
-  //     // vendors = myBox.values.toList() as List<VendorModel>;
-  //     await loadVendor();
-  //     return vendors;
-  //   } catch (e) {
-  //     Logger().d('getAllVendor: $e');
-  //     return null;
-  //   }
-  // }
 
   VendorModel? getVendorById(String id) {
     try {
@@ -377,49 +1107,6 @@ class VendorDatabase {
       return null;
     }
   }
-
-  // Future<bool> addVendor(VendorModel vendor) async {
-  //   vendors.add(vendor);
-  //   try {
-  //     final myBox = await _getBox('vendor');
-  //     myBox.put(int.parse(vendor.id), vendor);
-  //     await loadVendor();
-  //     return true;
-  //   } catch (e) {
-  //     Logger().d('addVendor: $e');
-  //     return false;
-  //   }
-  // // }
-
-  // Future<bool> removeVendorById(String id) async {
-  //   if (vendors.isEmpty) return false;
-  //   final index = vendors.indexWhere((vendor) => vendor.id == id);
-  //   try {
-  //     final myBox = await _getBox('vendor');
-  //     await myBox.deleteAt(index);
-  //     await loadVendor();
-  //     return true;
-  //   } catch (e) {
-  //     Logger().d('removeVendorById: $e');
-  //     return false;
-  //   }
-  // }
-
-//   Future<bool> updateVendorById(VendorModel vendor) async {
-//     if (vendors.indexWhere((vendor) => vendor.id == vendor.id) == -1) {
-//       return false;
-//     }
-//     try {
-//       final mybox = await _getBox('vendor');
-//       await mybox.put(int.parse(vendor.id), vendor);
-//       await loadVendor();
-//       return true;
-//     } catch (e) {
-//       Logger().d('updateVendorById: $e');
-//       return false;
-//     }
-//   }
-// }
 }
 
 class ProductDatabase {
@@ -427,23 +1114,25 @@ class ProductDatabase {
   static final ProductDatabase _instance =
       ProductDatabase._privateConstructor();
   static ProductDatabase get instance => _instance;
-
+  DateTime now = DateTime.now();
   List<ProductModel> products = [
     ProductModel(
-        id: '1',
-        name: 'The Voice VIPpppppppp',
-        description:
-            'Exclusive VIP access to The Voice with premium seating, priority check-in, and access to the artist meet-and-greet session.',
-        price: 50.0,
-        eventDate: DateTime(2024, 2, 15, 19, 0),
-        location: 'St 230, Beoung Salang, Toul Kork, Phnom Penh'),
+      id: '1',
+      name: 'The Voice VIP',
+      description:
+          'Exclusive VIP access to The Voice with premium seating, priority check-in, and access to the artist meet-and-greet session.',
+      price: 50.0,
+      eventDate: DateTime(2023, 1, 12, 12, 0),
+      location: 'St 230, Beoung Salang, Toul Kork, Phnom Penh',
+      isPromoted: true,
+    ),
     ProductModel(
         id: '2',
         name: 'The Voice Premium',
         description:
             'Enjoy premium access to The Voice, featuring close-to-stage seating and complimentary snacks during the show.',
         price: 150.0,
-        eventDate: DateTime(2024, 2, 15, 19, 0),
+        eventDate: DateTime(2022, 01, 12, 12, 0),
         location: 'Diamond Island Convention Center, Phnom Penh'),
     ProductModel(
         id: '3',
@@ -451,7 +1140,7 @@ class ProductDatabase {
         description:
             'General admission ticket to The Voice with great seating and an amazing experience for music lovers.',
         price: 20.0,
-        eventDate: DateTime(2024, 2, 15, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Olympic Stadium, Phnom Penh'),
     ProductModel(
         id: '4',
@@ -459,7 +1148,7 @@ class ProductDatabase {
         description:
             'Standing-only ticket for The Voice, perfect for those who love to immerse themselves in the energy of the crowd.',
         price: 30.0,
-        eventDate: DateTime(2024, 2, 15, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'AEON Mall Phnom Penh'),
     ProductModel(
         id: '5',
@@ -467,7 +1156,7 @@ class ProductDatabase {
         description:
             'The ultimate VIP experience with front-row seating, backstage passes, and exclusive dinner with the artists.',
         price: 250.0,
-        eventDate: DateTime(2024, 2, 15, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'City Center Parking, Phnom Penh'),
     ProductModel(
         id: '6',
@@ -475,7 +1164,7 @@ class ProductDatabase {
         description:
             'Experience a night of wonder and amazement with world-renowned magicians performing their best tricks and illusions.',
         price: 100.0,
-        eventDate: DateTime(2024, 3, 10, 18, 0),
+        eventDate: DateTime(2026, 01, 12, 12, 0),
         location: 'Event Hall, Phnom Penh'),
     ProductModel(
         id: '7',
@@ -483,7 +1172,7 @@ class ProductDatabase {
         description:
             'A spectacular music concert featuring top local and international artists, lighting displays, and an unforgettable atmosphere.',
         price: 100.0,
-        eventDate: DateTime(2024, 3, 11, 20, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Event Hall, Phnom Penh'),
     ProductModel(
         id: '8',
@@ -491,7 +1180,7 @@ class ProductDatabase {
         description:
             'An adventurous elephant ride through scenic trails, combining excitement with cultural immersion.',
         price: 100.0,
-        eventDate: DateTime(2024, 3, 12, 10, 0),
+        eventDate: DateTime(2022, 01, 12, 12, 0),
         location: 'Event Hall, Phnom Penh'),
     ProductModel(
         id: '9',
@@ -499,7 +1188,7 @@ class ProductDatabase {
         description:
             'A breathtaking outdoor event showcasing the serene beauty of mountain landscapes with live performances.',
         price: 100.0,
-        eventDate: DateTime(2024, 3, 13, 15, 0),
+        eventDate: DateTime(2022, 01, 12, 12, 0),
         location: 'Event Hall, Phnom Penh'),
     ProductModel(
         id: '10',
@@ -507,7 +1196,7 @@ class ProductDatabase {
         description:
             'A VIP ticket granting access to premium seating and an exclusive pre-show cocktail hour.',
         price: 60.0,
-        eventDate: DateTime(2024, 4, 5, 18, 0),
+        eventDate: DateTime(2022, 01, 12, 12, 0),
         location: 'Event Food Court, Phnom Penh'),
     ProductModel(
         id: '11',
@@ -515,7 +1204,7 @@ class ProductDatabase {
         description:
             'An extraordinary VVIP experience with front-row seats and a post-show meet-and-greet with the performers.',
         price: 250.0,
-        eventDate: DateTime(2024, 4, 5, 18, 0),
+        eventDate: DateTime(2022, 01, 12, 12, 0),
         location: 'Main Stage, Phnom Penh'),
     ProductModel(
         id: '12',
@@ -523,7 +1212,7 @@ class ProductDatabase {
         description:
             'Premium seating and complimentary event merchandise for a complete concert experience.',
         price: 25.0,
-        eventDate: DateTime(2024, 4, 5, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Merchandise Booth, Phnom Penh'),
     ProductModel(
         id: '13',
@@ -531,7 +1220,7 @@ class ProductDatabase {
         description:
             'Standard admission ticket for a fun-filled evening of music and entertainment.',
         price: 15.0,
-        eventDate: DateTime(2024, 4, 5, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Merchandise Booth, Phnom Penh'),
     ProductModel(
         id: '14',
@@ -539,7 +1228,7 @@ class ProductDatabase {
         description:
             'Front-row seating for an up-close view of all the action, complete with complimentary refreshments.',
         price: 120.0,
-        eventDate: DateTime(2024, 4, 6, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'VIP Dining Hall, Phnom Penh'),
     ProductModel(
         id: '15',
@@ -547,7 +1236,7 @@ class ProductDatabase {
         description:
             'Comfortable seating at the back with a clear view of the stage and a relaxed atmosphere.',
         price: 10.0,
-        eventDate: DateTime(2024, 4, 6, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Check-in Counter, Phnom Penh'),
     ProductModel(
         id: '16',
@@ -555,7 +1244,7 @@ class ProductDatabase {
         description:
             'Join the first-ever Innex forum to discuss groundbreaking ideas and network with industry leaders.',
         price: 5.0,
-        eventDate: DateTime(2024, 5, 1, 10, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Merchandise Booth, Phnom Penh'),
     ProductModel(
         id: '17',
@@ -563,7 +1252,7 @@ class ProductDatabase {
         description:
             'The second Innex forum, focusing on emerging technologies and their impact on businesses.',
         price: 12.0,
-        eventDate: DateTime(2024, 5, 2, 10, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Entrance Hall, Phnom Penh'),
     ProductModel(
         id: '18',
@@ -571,7 +1260,7 @@ class ProductDatabase {
         description:
             'The final forum in the Innex series, featuring keynote speakers and innovative case studies.',
         price: 180.0,
-        eventDate: DateTime(2024, 5, 3, 10, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Main Stage, Phnom Penh'),
     ProductModel(
         id: '19',
@@ -579,7 +1268,7 @@ class ProductDatabase {
         description:
             'A subscription plan offering early access to tickets and discounts for all upcoming events in 2024.',
         price: 100.0,
-        eventDate: DateTime(2024, 1, 1, 0, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Online Platform'),
     ProductModel(
         id: '20',
@@ -587,7 +1276,7 @@ class ProductDatabase {
         description:
             'An immersive virtual experience showcasing Cambodia’s rich cultural heritage with live streaming and interactive sessions.',
         price: 30.0,
-        eventDate: DateTime(2024, 6, 10, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '21',
@@ -595,7 +1284,7 @@ class ProductDatabase {
         description:
             'A virtual session for personal growth and mindfulness, featuring renowned speakers and relaxing music.',
         price: 30.0,
-        eventDate: DateTime(2024, 6, 12, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '22',
@@ -603,7 +1292,7 @@ class ProductDatabase {
         description:
             'Watch an exhilarating online streaming event featuring top athletes from Cambodia and Thailand competing live.',
         price: 30.0,
-        eventDate: DateTime(2024, 7, 1, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '23',
@@ -611,7 +1300,7 @@ class ProductDatabase {
         description:
             'Stream live matches featuring Cambodia and Vietnam in an intense sporting competition.',
         price: 30.0,
-        eventDate: DateTime(2024, 7, 2, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '24',
@@ -619,7 +1308,7 @@ class ProductDatabase {
         description:
             'Catch the live streaming of a thrilling game between Cambodia and the Philippines.',
         price: 30.0,
-        eventDate: DateTime(2024, 7, 3, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '25',
@@ -627,7 +1316,7 @@ class ProductDatabase {
         description:
             'Join the excitement as Cambodia faces Indonesia in this highly anticipated sporting event.',
         price: 30.0,
-        eventDate: DateTime(2024, 7, 4, 18, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '26',
@@ -635,7 +1324,7 @@ class ProductDatabase {
         description:
             'Enjoy your view from the left row, offering a unique perspective on the virtual event.',
         price: 30.0,
-        eventDate: DateTime(2024, 8, 10, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '27',
@@ -643,7 +1332,7 @@ class ProductDatabase {
         description:
             'Sit in the right row for an unparalleled virtual experience and a great view of the action.',
         price: 30.0,
-        eventDate: DateTime(2024, 8, 10, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '28',
@@ -651,224 +1340,231 @@ class ProductDatabase {
         description:
             'Secure the front row for the best seat in the virtual venue with an immersive view.',
         price: 30.0,
-        eventDate: DateTime(2024, 8, 10, 19, 0),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '29',
         name: 'Car Show Meet',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '30',
         name: 'CADT Workshop',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '31',
         name: 'Technology Seminar',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '32',
         name: 'Bar-Cam',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '33',
         name: 'Code-C',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '34',
         name: 'MSC-VIP',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '35',
         name: 'MSC-Standard',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '36',
         name: 'Alumni Meet',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '37',
         name: 'Prom',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '38',
         name: 'Stu-Teach Garthering',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '39',
         name: 'Robocon Show',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '40',
         name: 'Coding Expo',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '41',
         name: '7km',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '42',
         name: '14km',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '43',
         name: '21km',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '44',
         name: '42km',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '45',
         name: 'Play-Off',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '46',
         name: 'Knock-Out',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '47',
         name: 'Grand Final',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '48',
         name: 'Play-Off',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '49',
         name: 'Knock-Out',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '50',
         name: 'Grand Final',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '51',
         name: 'Yeak Sa Show',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '52',
         name: 'Movie Night',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '53',
         name: 'Boat Party',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '54',
         name: 'VVIP',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '55',
         name: 'VIP',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '56',
         name: 'Premium',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '57',
         name: 'Diamond',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '58',
         name: 'Standing',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
         location: 'Virtual Event Platform'),
     ProductModel(
         id: '59',
         name: 'Standard',
         description: 'Online streaming access for the event',
         price: 30.0,
-        eventDate: DateTime.now(),
+        eventDate: DateTime(2025, 01, 12, 12, 0),
+        location: 'Virtual Event Platform'),
+    ProductModel(
+        id: '60',
+        name: 'Normal Party',
+        description: 'Online streaming access for the event',
+        price: 4,
+        eventDate: DateTime(2024, 12, 26, 16, 0),
         location: 'Virtual Event Platform'),
   ];
 }
@@ -939,6 +1635,7 @@ class ProductTaxonDatabase {
     ProductTaxonModel(id: '57', taxonId: '19', productId: '57'),
     ProductTaxonModel(id: '58', taxonId: '19', productId: '58'),
     ProductTaxonModel(id: '59', taxonId: '19', productId: '59'),
+    ProductTaxonModel(id: '60', taxonId: '20', productId: '60'),
   ];
 }
 
@@ -1040,47 +1737,6 @@ class OptionTypeDatabase {
     OptionTypeModel(
         id: '70', type: 'TicketEvent', description: 'Affiliate Ticket'),
   ];
-  // Future<void> load() async {
-  //   try {
-  //     if (await _checkBox('option_type')) {
-  //       final myBox = await _getBox<OptionTypeModel>('option_type');
-  //       options = myBox.values.toList();
-  //     } else {
-  //       final myBox = await _getBox<OptionTypeModel>('option_type');
-  //       await myBox.addAll(options);
-  //     }
-  //   } catch (e) {
-  //     Logger().d('loadOptionTypes: $e');
-  //   }
-  // }
-
-  // Future<List<OptionTypeModel>?> getAllOptions() async {
-  //   try {
-  //     await load();
-  //     return options;
-  //   } catch (e) {
-  //     Logger().d('getAllOptions: $e');
-  //     return null;
-  //   }
-  // }
-
-  // Future<OptionTypeModel?> getOptionTypeById(String id) async {
-  //   try {
-  //     return options.firstWhere((option) => option.id == id);
-  //   } catch (e) {
-  //     Logger().d('getOptionTypeById: $e');
-  //     return null;
-  //   }
-  // }
-
-  // Future<List<OptionTypeModel>?> getOptionTypeByType(String type) async {
-  //   try {
-  //     return options.where((option) => option.type == type).toList();
-  //   } catch (e) {
-  //     Logger().d('getOptionTypeById: $e');
-  //     return null;
-  //   }
-  // }
 }
 
 class ProductVariantDatabase {
@@ -1094,17 +1750,17 @@ class ProductVariantDatabase {
         id: '1',
         productId: '1',
         optionTypesId: ['61', '31', '11'],
-        stockId: '1'), // T-shirt, Size M, Color Blue
+        stockId: '1'),
     ProductVariantModel(
         id: '2',
         productId: '1',
         optionTypesId: ['61', '31', '12'],
-        stockId: '2'), // T-shirt, Size M, Color Red
+        stockId: '2',), // T-shirt, Size M, Color Red
     ProductVariantModel(
         id: '3',
         productId: '1',
         optionTypesId: ['61', '31', '13'],
-        stockId: '3'), // T-shirt, Size M, Color Green
+        stockId: '3',), // T-shirt, Size M, Color Green
     ProductVariantModel(
         id: '4',
         productId: '1',
@@ -3070,27 +3726,33 @@ class ProductVariantDatabase {
         id: '396',
         productId: '59',
         optionTypesId: ['25', '65', '13'],
-        stockId: ''), // Skirt, Size 36, Color Black
+        stockId: '396'), // Skirt, Size 36, Color Black
     ProductVariantModel(
         id: '397',
         productId: '59',
         optionTypesId: ['25', '65', '13'],
-        stockId: ''), // Skirt, Size 36, Color Black
+        stockId: '397'), // Skirt, Size 36, Color Black
     ProductVariantModel(
         id: '398',
         productId: '59',
         optionTypesId: ['25', '65', '13'],
-        stockId: ''), // Skirt, Size 36, Color Black
+        stockId: '398'), // Skirt, Size 36, Color Black
     ProductVariantModel(
         id: '399',
         productId: '59',
         optionTypesId: ['25', '65', '13'],
-        stockId: ''), // Skirt, Size 36, Color Black
+        stockId: '399'), // Skirt, Size 36, Color Black
     ProductVariantModel(
         id: '400',
         productId: '59',
         optionTypesId: ['25', '65', '13'],
-        stockId: ''), // Skirt, Size 36, Color Black
+        stockId: '400'), // Skirt, Size 36, Color Black
+    ProductVariantModel(
+      id: '401',
+      productId: '60',
+      optionTypesId: ['25', '65', '13'],
+      stockId: '401',
+    ), // Skirt, Size 36, Color Black
   ];
 }
 
@@ -5472,6 +6134,42 @@ class StockDatabase {
         stockLocation: '',
         variantId: '395',
         limitStock: 200),
+    StockModel(
+        id: '396',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '396',
+        limitStock: 200),
+    StockModel(
+        id: '397',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '397',
+        limitStock: 200),
+    StockModel(
+        id: '398',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '398',
+        limitStock: 200),
+    StockModel(
+        id: '399',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '399',
+        limitStock: 200),
+    StockModel(
+        id: '400',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '400',
+        limitStock: 200),
+    StockModel(
+        id: '401',
+        quantity: 200,
+        stockLocation: '',
+        variantId: '401',
+        limitStock: 200),
   ];
 }
 
@@ -5507,7 +6205,7 @@ class UserDatabase {
       name: 'Mengthong Ly',
       firstName: 'Mengthong',
       lastName: 'ly',
-      email: 'mengthong@example.com',
+      email: 'mengthong@gmail.com',
       password: '123',
       role: UserRoleModel.admin,
     ),
@@ -5516,7 +6214,7 @@ class UserDatabase {
       name: 'Lylin Ho',
       firstName: 'lylin',
       lastName: 'ho',
-      email: 'lylin@example.com',
+      email: 'lylin@gmail.com',
       password: '123',
       role: UserRoleModel.admin,
     ),

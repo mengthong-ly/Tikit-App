@@ -4,6 +4,7 @@ import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/view/pages/bottom_sheet_content.dart';
 import 'package:event_with_thong/view/pages/welcome_page.dart';
 import 'package:event_with_thong/viewModels/product_variant_provider.dart';
+import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -62,8 +63,10 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
     });
   }
 
-  void triggerModelForBuyNow() {
-    showModalBottomSheet(
+  void triggerModelForBuyNow() async {
+    await showModalBottomSheet(
+      backgroundColor: context.read<ThemeProvider>().theme.canvasColor,
+      elevation: 0,
       context: context,
       enableDrag: true,
       showDragHandle: true,
@@ -83,10 +86,11 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
         );
       },
     );
+    setState(() {});
   }
 
-  void triggerModelForAddToCart() {
-    showModalBottomSheet(
+  void triggerModelForAddToCart() async {
+    await showModalBottomSheet(
       context: context,
       showDragHandle: true,
       isScrollControlled: true,
@@ -101,6 +105,7 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
         ),
       ),
     );
+    setState(() {});
   }
 
   @override
@@ -148,8 +153,9 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
                   buildEventDetailRow('Locations', widget.model.location),
                   buildEventDetailRow(
                       'Time', widget.model.eventDate.toString()),
-                  buildEventDetailRow('Cautious',
-                      'lorem imsump lorem imsump lorem imsump lorem imsump'),
+                  // buildEventDetailRow('Cautious'),
+                  const SizedBox(width: 10),
+                  buildCautious(),
                   const Divider(),
                   const SizedBox(height: 10),
                   const Text('check-in note'),
@@ -163,7 +169,7 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'Before Entering the Events you must come with your Ticket in the App not Screen shot. Do not resell any ticket to anyone. Incase you get scam, we will not responsible for that',
+                    'Important Entry Guidelines: \nBring Your Official Ticket:\nEnsure you bring the ticket as displayed within the official app. Screenshots or printouts will not be accepted.\n\nNo Ticket Resales:\nTickets are non-transferable. Reselling your ticket to others is strictly prohibited.\n\nBeware of Scams:\n\nOnly purchase tickets through official channels.\nIf you purchase a ticket from an unauthorized source, you assume all risks associated with it.\nUnfortunately, we cannot be held responsible for any scams or fraudulent transactions.\nPrepare for Smooth Entry:\nHave your ticket open in the app and ready to be scanned when you arrive at the event to avoid delays.',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -178,32 +184,95 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
     );
   }
 
+  Widget buildCautious() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Cautious',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(
+          width: 200,
+          height: 35,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/warningIcon/002.png',
+                  width: 100,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Image.asset(
+                  'assets/warningIcon/003.png',
+                  width: 100,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Image.asset(
+                  'assets/warningIcon/011.png',
+                  width: 100,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Image.asset(
+                  'assets/warningIcon/013.png',
+                  width: 100,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Image.asset(
+                  'assets/warningIcon/021.png',
+                  width: 100,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
   Widget buildBottomNavigationBar(BuildContext context,
       {VoidCallback? triggerAddToCart, VoidCallback? triggerBuy}) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
-      child: Container(
-        decoration: const BoxDecoration(
-          // color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              spreadRadius: 5,
-              color: Color.fromARGB(28, 0, 0, 0),
-            ),
-          ],
-        ),
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TElevatedButtonSmall(
-              label: 'Add to Cart',
-              onPress: triggerAddToCart!,
-            ),
-            TElevatedButtonSmall(label: 'Buy Now', onPress: triggerBuy!),
-          ],
+    return Container(
+      decoration: const BoxDecoration(color: Color(0xfff4f4f4), boxShadow: [
+        BoxShadow(
+          blurRadius: 20,
+          spreadRadius: 5,
+          color: Color.fromARGB(28, 0, 0, 0),
+        )
+      ]),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 30, top: 20),
+        child: Container(
+          decoration: const BoxDecoration(),
+          width: MediaQuery.of(context).size.width,
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TElevatedButtonSmall(
+                label: 'Add to Cart',
+                onPress: triggerAddToCart!,
+              ),
+              TElevatedButtonSmall(label: 'Buy Now', onPress: triggerBuy!),
+            ],
+          ),
         ),
       ),
     );
@@ -250,44 +319,29 @@ class _ViewSingleVarientTicketPageState extends State<ViewSingleProductPage> {
   }
 
   Widget buildEventDetailRow(String title, String value) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 70,
-          height: 70,
-          margin: const EdgeInsets.only(bottom: 15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+    return SizedBox(
+      width: 300,
+      height: 70,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        const SizedBox(width: 10),
-        SizedBox(
-          width: 300,
-          height: 70,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

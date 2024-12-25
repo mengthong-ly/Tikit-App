@@ -28,9 +28,13 @@ class VendorProvider extends ChangeNotifier {
     await service.removeVendor(vendor);
   }
 
-  String getVendorImageById(String id) {
-    return service.vendorData.vendors.firstWhere(
-      (vendor) =>  vendor.id == id
-    ).profile; 
+  String? getVendorImageById(String id) {
+    try {
+      return service.vendorData.vendors
+          .firstWhere((vendor) => vendor.id == id)
+          .profile;
+    } catch (e) {
+      return null;
+    }
   }
 }

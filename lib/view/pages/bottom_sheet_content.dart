@@ -2,10 +2,13 @@ import 'package:event_with_thong/models/line_item.dart';
 import 'package:event_with_thong/models/product.dart';
 import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
+import 'package:event_with_thong/theme/theme.dart';
+import 'package:event_with_thong/view/operator/tikit_custom_snack_bar.dart';
 import 'package:event_with_thong/view/pages/payment_screen.dart';
 import 'package:event_with_thong/view/pages/view_single_product_page.dart';
 import 'package:event_with_thong/viewModels/cart_provider.dart';
 import 'package:event_with_thong/viewModels/product_variant_provider.dart';
+import 'package:event_with_thong/viewModels/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,12 +67,6 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     });
   }
 
-  void showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
-  }
-
   void onVaraintSheetSelect(ProductVariantModel variant) {
     setState(() {
       selectedProductVariant = variant;
@@ -81,7 +78,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     if (quantity == 0 &&
         selectedProductVariant != null &&
         checkStock(selectedProductVariant!.id) <= 0) {
-      showSnackbar(context, 'Invalid quantity');
+      TikitCustomSnackBar.show(context, 'Invalid quantity');
     } else {
       // Directly await the result and navigate after getting the cart
       final cart = await context
@@ -108,76 +105,112 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
       right: 0,
       bottom: 0,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: const Color(0xfff4f4f4),
+        // color: context.read<ThemeProvider>().theme == TAppTheme.lightTheme ? Color(0xfff4f4f4) : Color(0xff101010),
+        color: context.read<ThemeProvider>().theme.canvasColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "total",
-                  style: TTextTheme.lightTextTheme.titleSmall,
-                ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        decreamentquantity();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              decoration: const BoxDecoration(color: Color(0xff16A34A)),
+              alignment: Alignment.centerLeft,
+              height: 25,
+              child: Row(
+                children: [
+                  Text(
+                    'Variants Stock:  ',
+                    style: TTextTheme.darkTextTheme.bodyLarge,
+                  ),
+                  Text(
+                    '${checkStock(selectedProductVariant!.id)}',
+                    style: TTextTheme.darkTextTheme.bodyLarge,
+                  ),
+                  Text(
+                    'left',
+                    style: TTextTheme.darkTextTheme.bodyLarge,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "total",
+                    style: context.read<ThemeProvider>().theme ==
+                            TAppTheme.lightTheme
+                        ? TTextTheme.lightTextTheme.titleSmall
+                        : TTextTheme.darkTextTheme.titleSmall,
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          decreamentquantity();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
                             color: const Color(0xffFD2942),
-                            borderRadius: BorderRadius.circular(5)),
-                        width: 27,
-                        height: 27,
-                        child: const Icon(
-                          Icons.remove,
-                          color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          width: 27,
+                          height: 27,
+                          child: const Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text(
-                        '$quantity',
-                        style: TTextTheme.lightTextTheme.titleSmall,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          '$quantity',
+                          style: context
+                              .read<ThemeProvider>()
+                              .theme
+                              .textTheme
+                              .titleSmall,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        increasequantity();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color(0xffFD2942),
-                            borderRadius: BorderRadius.circular(5)),
-                        width: 27,
-                        height: 27,
-                        child: const Icon(Icons.add, color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          increasequantity();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color(0xffFD2942),
+                              borderRadius: BorderRadius.circular(5)),
+                          width: 27,
+                          height: 27,
+                          child: const Icon(Icons.add, color: Colors.white),
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffFD2942),
-                ),
-                onPressed: ischeckOutAble ? onCheckOut : null,
-                child: Text(
-                  isCheckOut ? 'Check-out' : 'Add to Cart',
-                  style: TTextTheme.darkTextTheme.titleLarge,
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width - 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffFD2942),
+                  ),
+                  onPressed: ischeckOutAble ? onCheckOut : null,
+                  child: Text(
+                    isCheckOut ? 'Check-out' : 'Add to Cart',
+                    style: TTextTheme.darkTextTheme.titleLarge,
+                  ),
                 ),
               ),
             ),
@@ -225,9 +258,12 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                           style: TextStyle(color: Color(0xff16a34a)),
                         ),
                         Text(
-                          widget.product.price.toString(),
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
+                          '\$${widget.product.price.toString()}',
+                          style: TextStyle(
+                              color: context.read<ThemeProvider>().theme ==
+                                      TAppTheme.lightTheme
+                                  ? const Color.fromARGB(255, 0, 0, 0)
+                                  : Colors.white),
                         ),
                       ],
                     ),
@@ -240,51 +276,53 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                 ),
                 const SizedBox(height: 6),
                 ...widget.productVariants.asMap().entries.map(
-                      (variant) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Text(variant.value.optionTypesId),
-                            const SizedBox(height: 5),
-                            Wrap(
-                              spacing: 10,
-                              runSpacing: 10,
-                              children: List.generate(
-                                variant.value.optionTypesId.length,
-                                (index) => GestureDetector(
-                                  onTap: () =>
-                                      onVaraintSheetSelect(variant.value),
-                                  child: Container(
-                                    height: 23,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    decoration: BoxDecoration(
-                                      color: selectedProductVariant ==
-                                              variant.value
-                                          ? const Color(0xffFD2942)
-                                          : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(
-                                        color: const Color(0xffFD2942),
-                                      ),
+                  (variant) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(variant.value.optionTypesId),
+                          const SizedBox(height: 5),
+                          Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: List.generate(
+                              variant.value.optionTypesId.length,
+                              (index) => GestureDetector(
+                                onTap: () =>
+                                    onVaraintSheetSelect(variant.value),
+                                child: Container(
+                                  height: 23,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        selectedProductVariant == variant.value
+                                            ? const Color(0xffFD2942)
+                                            : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(30),
+                                    border: Border.all(
+                                      color: const Color(0xffFD2942),
                                     ),
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: Text(context
-                                          .read<ProductVariantProvider>()
-                                          .getOptionTypeById(variant
-                                              .value.optionTypesId[index])
-                                          .description),
-                                    ),
+                                  ),
+                                  child: FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: Text(context
+                                        .read<ProductVariantProvider>()
+                                        .getOptionTypeById(
+                                            variant.value.optionTypesId[index])
+                                        .description),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

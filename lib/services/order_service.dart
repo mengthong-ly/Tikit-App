@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/order.dart';
 import 'package:event_with_thong/services/base_service.dart';
 import 'package:event_with_thong/services/cart_service.dart';
@@ -11,10 +11,8 @@ class OrderService extends BaseService {
   static OrderService get instance => _instance;
 
   OrderDatabase orderData = OrderDatabase.instance;
-
   CartService service = CartService.instance;
   PaymentService paymentService = PaymentService.instance;
-
 
   Future<void> laodOrder() async {
     try {

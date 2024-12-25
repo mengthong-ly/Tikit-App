@@ -1,6 +1,7 @@
 import 'package:event_with_thong/models/line_item.dart';
+import 'package:event_with_thong/view/pages/booking_page.dart';
+import 'package:event_with_thong/view/pages/payment_screen.dart';
 import 'package:event_with_thong/viewModels/cart_provider.dart';
-import 'package:event_with_thong/viewModels/product_variant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _CartPageState extends State<CartPage> {
             (context, index) {
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Slidable(
                   useTextDirection: true,
                   closeOnScroll: true,
@@ -76,23 +77,9 @@ class _CartPageState extends State<CartPage> {
                       color: const Color(0xff303030),
                     ),
                     width: MediaQuery.of(context).size.width,
-                    height: 123,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          context
-                                  .read<ProductVariantProvider>()
-                                  .getProductById(cart[index].productVariant)
-                                  ?.name ??
-                              ' ',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
+                    height: 173,
+                    child: CartItem(
+                      lineItem: cart[index],
                     ),
                   ),
                 ),
@@ -118,9 +105,24 @@ class _CartPageState extends State<CartPage> {
       return CustomScrollView(
         physics: cart.isEmpty ? const NeverScrollableScrollPhysics() : null,
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             centerTitle: false,
-            title: Text(
+            actions: [
+              cart.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return PaymentScreen(
+                              cart: cart,
+                            );
+                          },
+                        ));
+                      },
+                      icon: const Icon(Icons.shopping_cart_checkout_rounded))
+                  : const SizedBox.shrink()
+            ],
+            title: const Text(
               'Shopping Cart',
               style: TextStyle(
                 fontWeight: FontWeight.w600,

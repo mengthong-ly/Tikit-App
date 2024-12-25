@@ -1,4 +1,4 @@
-import 'package:event_with_thong/database/taxonomies_database.dart';
+import 'package:event_with_thong/database/database.dart';
 import 'package:event_with_thong/models/option_type.dart';
 import 'package:event_with_thong/models/product_variant.dart';
 import 'package:event_with_thong/services/base_service.dart';
@@ -65,7 +65,6 @@ class ProductVariantService extends BaseService {
         .toList();
   }
 
-
   ProductVariantModel? getVariantById(String variantId) {
     try {
       return productVariantData.productVariant
@@ -85,5 +84,21 @@ class ProductVariantService extends BaseService {
           .firstWhere((optionTypeModel) => optionTypeModel.id == optionId)));
     }
     return temp.toSet().toList();
+  }
+
+  void updateVariants(ProductVariantModel updatedVariant) async {
+    try {
+      final int index = productVariantData.productVariant.indexWhere(
+        (variant) {
+          return variant.id == updatedVariant.id;
+        },
+      );
+
+      final mybox = await getBox<ProductVariantModel>('productVariant');
+      await mybox.put(index, updatedVariant);
+      await load();
+    } catch (e) {
+      Logger().d('fail to update');
+    }
   }
 }

@@ -1,8 +1,20 @@
+import 'package:event_with_thong/models/line_item.dart';
+import 'package:event_with_thong/models/product.dart';
+import 'package:event_with_thong/models/taxon.dart';
 import 'package:event_with_thong/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ViewBookingTicket extends StatelessWidget {
-  const ViewBookingTicket({super.key});
+  final LineItemModel lineItem;
+  final TaxonModel event;
+  final ProductModel? product;
+  const ViewBookingTicket({
+    super.key,
+    required this.lineItem,
+    required this.event,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,95 +31,20 @@ class ViewBookingTicket extends StatelessWidget {
             pinned: true,
             toolbarHeight: kToolbarHeight,
           ),
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: 50),
-                const CustomTicketCard(
-                  title: "RUN WITH SAI",
-                  ticketNumber: "L439307592",
-                  eventName: "7.1 KM - KOH KONG BRIDGE RACE",
-                  details: "Distance: 7.1KM, T-Shirt: L\n(65-75kg | 1.70m)",
-                  date: "10 ខែឧសភា 2024",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                buildTitle('Date & Time'),
-                const SizedBox(height: 15),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Icon(Icons.schedule),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(' 3:00pm - 9:00pm'),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                // locatioin
-                buildTitle('Location'),
-                const SizedBox(height: 15),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Icon(Icons.pin_drop_outlined),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 350,
-                      child: Text(
-                          'st 230,  songkat beoung salang, khan toul kork, Phnom Penh'),
-                    ),
-                  ],
-                ),
-                // map image
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width * 9 / 21,
-                  decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                            blurRadius: 20,
-                            spreadRadius: 2,
-                            color: Color.fromARGB(37, 0, 0, 0))
-                      ],
-                      color: const Color(0xff303030),
-                      image: const DecorationImage(
-                          image: AssetImage('assets/map.png'),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(5)),
-                ),
-                buildTitle('Description'),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu',
-                    style: TTextTheme.lightTextTheme.bodyMedium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 200,
-                )
-              ],
-            ),
-          ),
+          SliverList.builder(
+            itemCount: lineItem.quantity,
+            itemBuilder: (context, index) {
+              return CustomTicketCard(
+                eventDate: product!.eventDate,
+                ticketImage: event.image,
+                ticketName: product?.name ?? 'product not found',
+                title: event.name,
+                ticketNumber: event.id,
+                eventName: "7.1 KM - KOH KONG BRIDGE RACE",
+                details: "Distance: 7.1KM, T-Shirt: L\n(65-75kg | 1.70m)",
+              );
+            },
+          )
         ],
       ),
     );
@@ -128,9 +65,11 @@ class ViewBookingTicket extends StatelessWidget {
 class CustomTicketCard extends StatelessWidget {
   final String title;
   final String ticketNumber;
+  final String ticketName;
+  final String ticketImage;
+  final DateTime eventDate;
   final String eventName;
   final String details;
-  final String date;
 
   const CustomTicketCard({
     super.key,
@@ -138,13 +77,16 @@ class CustomTicketCard extends StatelessWidget {
     required this.ticketNumber,
     required this.eventName,
     required this.details,
-    required this.date,
+    required this.ticketName,
+    required this.ticketImage,
+    required this.eventDate,
   });
 
   @override
   Widget build(BuildContext context) {
     return Align(
       child: Container(
+        margin: const EdgeInsets.only(bottom: 15),
         width: 390,
         height: 390 * 9 / 16,
         decoration: BoxDecoration(
@@ -189,10 +131,23 @@ class CustomTicketCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      Text(
-                        "លេខអត្តសញ្ញាណប័ណ្ណ: $ticketNumber",
-                        style: const TextStyle(color: Colors.white70),
-                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            DateFormat('dd-mm-yyyy').format(eventDate),
+                            style: const TextStyle(color: Colors.white),
+                          )
+                        ],
+                      )
                     ],
                   ),
                   const Icon(
@@ -216,6 +171,12 @@ class CustomTicketCard extends StatelessWidget {
                       color: const Color(0xff303030),
                       borderRadius: BorderRadius.circular(5),
                     ),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.asset(
+                          ticketImage,
+                          fit: BoxFit.cover,
+                        )),
                   ),
                   const SizedBox(
                     width: 20,
@@ -227,22 +188,30 @@ class CustomTicketCard extends StatelessWidget {
                       Container(
                         width: 70,
                         height: 26,
-                        decoration: const BoxDecoration(
-                            color: Color(0xff16a34a),
-                            borderRadius: BorderRadius.all(Radius.circular(3))),
+                        decoration: BoxDecoration(
+                            color: DateTime.now().isBefore(eventDate)
+                                ? const Color(0xff16a34a)
+                                : const Color(0xffFD2942),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(3))),
                         child: Center(
                           child: FittedBox(
                             fit: BoxFit.cover,
                             child: Text(
-                              "valid",
+                              DateTime.now().isBefore(eventDate)
+                                  ? "valid"
+                                  : 'Invalid',
                               style: TTextTheme.darkTextTheme.bodyLarge,
                             ),
                           ),
                         ),
                       ),
-                      Text(
-                        'x2 Run with sai',
-                        style: TTextTheme.lightTextTheme.titleLarge,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 3),
+                        child: Text(
+                          ticketName,
+                          style: TTextTheme.lightTextTheme.titleLarge,
+                        ),
                       ),
                       const Text("Booked: 32 / 13/ 2050")
                     ],
